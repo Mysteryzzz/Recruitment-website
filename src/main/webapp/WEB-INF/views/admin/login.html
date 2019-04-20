@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员登录</title>
+    <script src="${base.contextPath}/lib/jquery/jquery-2.2.4.js"></script>
+    <script src="${base.contextPath}/lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="${base.contextPath}/lib/layui/layui.all.js"></script>
+    <link href="${base.contextPath}/lib/layui/css/layui.css" rel="stylesheet" type="text/css">
+    <link href="${base.contextPath}/lib/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <style>
+        html,body{
+            padding: 0;
+            margin: 0;
+            background-image: linear-gradient(to right , #010102, #ffffff);
+        }
+        .loginform{
+            margin-top:  200px;
+            height: 300px;
+        }
+        #form{
+            background-color: #00F7DE;
+            background-color:rgba(255,255,255,0.5);
+            box-shadow: 0px 0px 8px #939693;
+            height: 300px;
+        }
+        form-control-feedback{
+            left:0
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="loginform row">
+        <form id="form"  class="col-sm-offset-8 col-sm-4" style="opacity: 0">
+            <div class="form-group row ">
+                <h3 class="col-sm-5 col-sm-offset-4 control-label" style="margin-top:10px;size: 30px;font-family: 等线">管理员登录</h3>
+            </div>
+
+            <div class="form-group row">
+                <label id="account_msg" class="col-sm-offset-1 control-label" style="color: red"></label>
+                <div class="input-group col-sm-offset-1 col-sm-10">
+                    <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user"></span></span>
+                    <input type="text" class="form-control  " name="account" id="account" aria-describedby="basic-addon1" placeholder="账号/手机号/邮箱">
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <label id="pass_msg" class="control-label"></label>
+                <div class="input-group col-sm-offset-1 col-sm-10">
+                    <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-lock"></span></span>
+                    <input type="password" class="form-control " name="password" id="password" aria-describedby="basic-addon2" placeholder="Password">
+                </div>
+
+            </div>
+            <div class="row">
+                <button id="submit" type="button"  class="col-sm-offset-4 col-sm-4 btn btn-primary">登录</button>
+            </div>
+            <form>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#form").delay(500).animate({ opacity: 1 }, 2000)
+    });
+
+    $("#password").focus(function () {
+        $("#account_msg").empty();
+    })
+
+    $("#submit").click(function () {
+        var account = $("#account").val();
+        var  password = $("#password").val();
+        $.ajax({
+            type:'GET',
+            url:'${base.contextPath}/admin/adminLogin',
+            data:'account='+account+'&password='+password,
+            dataType : "json",
+            contentType : "application/json",
+            success:function (res) {
+                if(!res.success)
+                {
+                    $("#account_msg").html(res.message);
+                }
+                else{
+                    window.location.href="index.html";
+                }
+            }
+
+        })
+    })
+</script>
+</body>
+</html>
