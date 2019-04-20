@@ -7,10 +7,7 @@ import com.cn.exception.HdmpException;
 import com.cn.user.service.ILoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,11 +27,11 @@ public class UserLoginController
     @Autowired
     ILoginService loginService;
     @ResponseBody
-    @RequestMapping(value = "/userLogin",method = RequestMethod.GET)
-    public ResponseData login(HttpServletRequest request, @RequestParam String account,@RequestParam String password )
+    @RequestMapping(value = "/userLogin",method = RequestMethod.POST)
+    public ResponseData login(HttpServletRequest request, User user )
     {
         HttpSession session = request.getSession();
-        User user = new User(account,password);
+        User user1 = new User(user.getAccount(),user.getPassword());
         loginService.checkLogin(user);
         session.setAttribute("user",user);
         return  new  ResponseData(true);

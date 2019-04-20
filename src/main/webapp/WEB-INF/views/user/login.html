@@ -12,7 +12,7 @@
         html,body{
             padding: 0;
             margin: 0;
-            background-image: linear-gradient(to right , #010102, #ffffff);
+            background-image: linear-gradient(to right , #44cb6a, #2cff92);
         }
         .loginform{
             margin-top:  200px;
@@ -73,11 +73,9 @@
         var account = $("#account").val();
         var  password = $("#password").val();
         $.ajax({
-            type:'GET',
+            type:'POST',
             url:'${base.contextPath}/user/userLogin',
-            data:'account='+account+'&password='+password,
-            dataType : "json",
-            contentType : "application/json",
+            data: {'account' : account, 'password' : password},
             success:function (res) {
                 if(!res.success)
                 {
