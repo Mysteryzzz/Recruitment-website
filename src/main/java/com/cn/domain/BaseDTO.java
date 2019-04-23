@@ -22,7 +22,7 @@ public class BaseDTO implements Serializable {
     @Condition(
             exclude = true
     )
-    private Long createdBy;
+    private Integer createdBy;
     @JsonIgnore
     @Column(
             updatable = false
@@ -36,7 +36,7 @@ public class BaseDTO implements Serializable {
     @Condition(
             exclude = true
     )
-    private Long lastUpdatedBy;
+    private Integer lastUpdatedBy;
     @JsonIgnore
     @Column
     @Condition(
@@ -49,12 +49,20 @@ public class BaseDTO implements Serializable {
 
     }
 
-    public Long getCreatedBy() {
+    public Integer getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(Long createdBy) {
+    public void setCreatedBy(Integer createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public Integer getLastUpdatedBy() {
+        return lastUpdatedBy;
+    }
+
+    public void setLastUpdatedBy(Integer lastUpdatedBy) {
+        this.lastUpdatedBy = lastUpdatedBy;
     }
 
     public Date getCreationDate() {
@@ -63,14 +71,6 @@ public class BaseDTO implements Serializable {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
-    }
-
-    public Long getLastUpdatedBy() {
-        return lastUpdatedBy;
-    }
-
-    public void setLastUpdatedBy(Long lastUpdatedBy) {
-        this.lastUpdatedBy = lastUpdatedBy;
     }
 
     public Date getLastUpdateDate() {

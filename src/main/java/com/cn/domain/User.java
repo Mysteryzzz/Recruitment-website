@@ -1,8 +1,12 @@
 package com.cn.domain;
 
-import java.util.Date;
 
-public class User {
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+public class User extends BaseDTO {
+    @Id
+    @GeneratedValue
     private Integer id;
 
     private String account;
@@ -17,13 +21,6 @@ public class User {
 
     private String enable;
 
-    private Date creationDate;
-
-    private Integer createdBy;
-
-    private Date lastUpdateDate;
-
-    private Integer lastUpdatedBy;
 
     public User()
     {
@@ -104,35 +101,4 @@ public class User {
         this.enable = enable == null ? null : enable.trim();
     }
 
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public Integer getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(Integer createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Date getLastUpdateDate() {
-        return lastUpdateDate;
-    }
-
-    public void setLastUpdateDate(Date lastUpdateDate) {
-        this.lastUpdateDate = lastUpdateDate;
-    }
-
-    public Integer getLastUpdatedBy() {
-        return lastUpdatedBy;
-    }
-
-    public void setLastUpdatedBy(Integer lastUpdatedBy) {
-        this.lastUpdatedBy = lastUpdatedBy;
-    }
 }
