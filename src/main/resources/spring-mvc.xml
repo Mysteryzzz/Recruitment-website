@@ -28,7 +28,6 @@
 
     <!--配置静态资源映射-->
     <mvc:resources mapping="/lib/**/" location="/lib/"></mvc:resources>
-
     <mvc:view-controller path="/company/login.html" view-name="company/login" />
     <mvc:view-controller path="/admin/login.html" view-name="admin/login" />
     <mvc:view-controller path="/user/login.html" view-name="user/login" />
