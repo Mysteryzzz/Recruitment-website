@@ -1,30 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>招聘网站</title>
-    <script src="${base.contextPath}/lib/jquery/jquery-2.2.4.js"></script>
-    <script src="${base.contextPath}/lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script src="${base.contextPath}/lib/layui/layui.all.js"></script>
-    <link href="${base.contextPath}/lib/layui/css/layui.css" rel="stylesheet" type="text/css">
-    <link href="${base.contextPath}/lib/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <style>
-        body{
-            padding: 0px;
-            margin: 0px;
-        }
-    </style>
-</head>
+<#include "header.html"/>
+
 <body>
     <div>
         <div style="height: 50px;background-color: #303640">
-            <div style="font-size: 30px;color: #ffffff;line-height: 50px;float: left;margin-left: 180px">
-                <img src="${base.contextPath}/lib/image/logo.png" height="40px" width="45px">
-                <span>英聘</span>
+            <a href="${base.contextPath}/index.html">
+                <img src="${base.contextPath}/lib/image/logo.png"  height="40px" width="45px" style="margin-top:6px ;float: left;margin-left: 180px;">
+            </a>
+            <div style="font-size: 30px;margin-top:8px ;float: left;">
+                <a href="${base.contextPath}/index.html" style="color: #ffffff;text-decoration: none">英聘</a>
+            </div>
+            <div style="float: left;font-size: 17px;line-height: 60px">
+                <ul>
+                    <li style="float: left;margin-left: 100px;width: 70px;height: 50px">
+                        <a href="${base.contextPath}/index.html" style="color: #ffffff;margin-left: 17px;text-decoration: none">首页</a>
+                    </li>
+                    <li style="float: left;width: 70px;height: 50px">
+                        <a href="${base.contextPath}/indexIframe/positionList" style="color: #ffffff;margin-left: 17px;text-decoration: none;">职位</a>
+                    </li>
+                    <li style="float: left;width: 70px;height: 50px">
+                        <a href="${base.contextPath}/indexIframe/companyList" style="color: #ffffff;margin-left: 17px;text-decoration: none">公司</a>
+                    </li>
+                </ul>
+            </div>
+            <div style="float: right; margin-right: 100px;margin-top: 20px;color: #ffffff">
+                <div style="float: left;margin-right: 20px">
+                    <a href="${base.contextPath}/user/login.html" style="color: #ffffff;text-decoration: none">请登录</a>
+                </div>
+                <div style="float: left;margin-right: 20px">
+                    |
+                </div>
+                <div style="float: left">
+                    <a href="${base.contextPath}/company/login.html" style="color: #ffffff;text-decoration: none">企业版登录</a>
+                </div>
             </div>
         </div>
         <div style="height: 300px;" >
-        <img src="${base.contextPath}/lib/image/rollback.jpg">
+        <img src="${base.contextPath}/lib/image/rollback.jpg" height="300px" width="100%">
         </div>
         <div style="margin-left: 13%;margin-right: 13%;background-color: #fff9ec;">
             <div style="height: 200px;">
