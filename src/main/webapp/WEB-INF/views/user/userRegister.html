@@ -10,8 +10,53 @@
     <link href="${base.contextPath}/lib/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div>
+<div style="margin-top: 100px;margin-left: 100px;width: 600px">
 
-    </div>
+    <form class="layui-form" action="/userRegister" method="post">
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">账号:</label>
+            <div class="layui-input-block">
+                <input type="text" name="account" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">密码:</label>
+            <div class="layui-input-block">
+                <input type="password" name="password" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">确认密码:</label>
+            <div class="layui-input-block">
+                <input type="password" name="repassword" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">邮箱:</label>
+            <div class="layui-input-block">
+                <input type="email" name="email" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">手机号:</label>
+            <div class="layui-input-block">
+                <input type="tel" name="phone" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="demo1">下一步</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //各种基于事件的操作，下面会有进一步介绍
+    });
+</script>
 </body>
 </html>

@@ -1,13 +1,15 @@
 package com.cn.domain;
 
 
+import com.cn.constant.AuthType;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 public class User extends BaseDTO {
     @Id
     @GeneratedValue
-    private Integer id;
+    private java.lang.Integer id;
 
     private String account;
 
@@ -17,39 +19,37 @@ public class User extends BaseDTO {
 
     private String phone;
 
-    private Integer type;
+    private AuthType type;
 
     private String enable;
 
+    private String salt;
 
-    public User()
-    {
+    public User() {
 
     }
 
-    public User(String account,String password)
-    {
+    public User(String account, String password) {
         this.account = account;
         this.password = password;
     }
-    public User(String account,String password,Integer type)
-    {
+
+    public User(String account, String password, AuthType type) {
         this.account = account;
         this.password = password;
         this.type = type;
     }
 
-    public User(String account,Integer type)
-    {
+    public User(String account, AuthType type) {
         this.account = account;
         this.type = type;
     }
 
-    public Integer getId() {
+    public java.lang.Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(java.lang.Integer id) {
         this.id = id;
     }
 
@@ -85,11 +85,11 @@ public class User extends BaseDTO {
         this.phone = phone;
     }
 
-    public Integer getType() {
+    public AuthType getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(AuthType type) {
         this.type = type;
     }
 
@@ -100,5 +100,18 @@ public class User extends BaseDTO {
     public void setEnable(String enable) {
         this.enable = enable == null ? null : enable.trim();
     }
+
+    public String getSalt() {
+        return this.salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public void updateSalt(java.lang.Integer id, String salt) {
+
+    }
+
 
 }

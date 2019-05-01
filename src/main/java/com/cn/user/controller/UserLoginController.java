@@ -21,19 +21,20 @@ import javax.servlet.http.HttpSession;
  */
 @RequestMapping(value = "/user")
 @Controller
-public class UserLoginController
-{
+public class UserLoginController {
 
     @Autowired
     ILoginService loginService;
+
     @ResponseBody
-    @RequestMapping(value = "/userLogin",method = RequestMethod.POST)
-    public ResponseData login(HttpServletRequest request, User user )
-    {
+    @RequestMapping(value = "/userLogin", method = RequestMethod.POST)
+    public ResponseData login(HttpServletRequest request, User user) {
         HttpSession session = request.getSession();
-        User user1 = new User(user.getAccount(),user.getPassword());
-        loginService.checkLogin(user);
-        session.setAttribute("user",user);
-        return  new  ResponseData(true);
+        User user1 = new User(user.getAccount(), user.getPassword());
+        user1 = loginService.checkLogin(user1);
+        session.setAttribute("user", user1);
+        return new ResponseData(true);
     }
+
+
 }

@@ -4,6 +4,7 @@ import com.cn.admin.service.IAdminLoginService;
 import com.cn.dao.UserMapper;
 import com.cn.domain.User;
 import com.cn.exception.MyException;
+import com.cn.constant.AuthType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class AdminLoginServiceImpl implements IAdminLoginService {
 
     @Override
     public User checkAdminAccount(User user) {
-        User user1  =userMapper.selectByAccount(new User(user.getAccount(),user.getPassword(),0));
+        User user1  =userMapper.selectByAccount(new User(user.getAccount(),user.getPassword(), AuthType.ADMIN_TYPE));
         if(user1==null)
         {
             throw new MyException("用户名或密码错误");

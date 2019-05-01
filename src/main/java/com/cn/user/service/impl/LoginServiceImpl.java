@@ -3,6 +3,7 @@ package com.cn.user.service.impl;
 import com.cn.dao.UserMapper;
 import com.cn.domain.User;
 import com.cn.exception.MyException;
+import com.cn.constant.AuthType;
 import com.cn.user.service.ILoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class LoginServiceImpl implements ILoginService
 {
-    private static Integer USER_TYPE=1;
+    private static java.lang.Integer USER_TYPE=1;
     private static String ENABLE="0";
 
     @Autowired
@@ -26,9 +27,9 @@ public class LoginServiceImpl implements ILoginService
 
     @Override
     public User checkLogin(User user){
-        user.setType(USER_TYPE);
+        user.setType(AuthType.USER_TYPE);
         User user1 = userMapper.selectByAccount(user);
-        if(userMapper.selectByAccount(new User(user.getAccount(),USER_TYPE))==null)
+        if(userMapper.selectByAccount(new User(user.getAccount(), AuthType.USER_TYPE))==null)
         {
             throw new MyException("用户名不存在");
         }

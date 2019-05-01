@@ -4,6 +4,7 @@ import com.cn.company.service.ICompanyLoginService;
 import com.cn.dao.UserMapper;
 import com.cn.domain.User;
 import com.cn.exception.MyException;
+import com.cn.constant.AuthType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,16 +19,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class CompanyLoginServiceImpl implements ICompanyLoginService {
 
-    private static Integer COMPANY_TYPE=2;
     private static String ENABLE="0";
     @Autowired
     UserMapper userMapper;
 
     @Override
     public User checkCompanyAcoount(User user) {
-        user.setType(COMPANY_TYPE);
+        user.setType(AuthType.COMPANY_TYPE);
         User user1 = userMapper.selectByAccount(user);
-        if(userMapper.selectByAccount(new User(user.getAccount(),2))==null)
+        if(userMapper.selectByAccount(new User(user.getAccount(), AuthType.COMPANY_TYPE))==null)
         {
             throw new MyException("用户名不存在");
         }

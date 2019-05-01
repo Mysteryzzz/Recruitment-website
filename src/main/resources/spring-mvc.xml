@@ -31,6 +31,7 @@
     <mvc:view-controller path="/company/login.html" view-name="company/login" />
     <mvc:view-controller path="/admin/login.html" view-name="admin/login" />
     <mvc:view-controller path="/user/login.html" view-name="user/login" />
+    <mvc:view-controller path="/user/userRegister.html" view-name="user/userRegister" />
     <mvc:view-controller path="/index.html" view-name="index"/>
     <mvc:view-controller path="admin/index.html" view-name="admin/index"/>
     <mvc:view-controller path="company/index.html" view-name="company/index"/>

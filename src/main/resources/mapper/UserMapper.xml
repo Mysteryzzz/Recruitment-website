@@ -173,4 +173,12 @@
       and u.type = #{type,jdbcType=INTEGER}
     </if>
   </select>
+  <update id="updateSalt">
+    update user u
+    set u.salt = #{salt}
+    where u.id = #{id}
+  </update>
+
+
+
 </mapper>
