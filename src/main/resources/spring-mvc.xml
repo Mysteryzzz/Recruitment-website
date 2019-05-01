@@ -34,6 +34,7 @@
     <mvc:view-controller path="/index.html" view-name="index"/>
     <mvc:view-controller path="admin/index.html" view-name="admin/index"/>
     <mvc:view-controller path="company/index.html" view-name="company/index"/>
+    <mvc:view-controller path="company/companyRegister.html" view-name="company/companyRegister"/>
 
     <!--配置freemarker-->
     <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
