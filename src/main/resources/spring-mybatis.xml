@@ -36,7 +36,7 @@
         <!-- 扫描domain包 使用别名 -->
         <property name="typeAliasesPackage" value="com.cn.**.domain"/>
         <!-- 扫描sql配置文件:mapper需要的xml文件 -->
-        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+        <property name="mapperLocations" value="classpath:mapper/**/*.xml"/>
         <property name="configLocation" value="classpath:mybatis-config.xml" />
     </bean>
 
@@ -45,7 +45,7 @@
         <!-- 注入sqlSessionFactory -->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <!-- 给出需要扫描Dao接口包 -->
-        <property name="basePackage" value="com.cn.dao"/>
+        <property name="basePackage" value="com.cn.company.dao,com.cn.dao,com.cn.admin.dao,com.cn.user.dao"/>
     </bean>
 
     <!-- 配置事务管理器 -->

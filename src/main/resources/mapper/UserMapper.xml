@@ -38,7 +38,7 @@
       #{enable,jdbcType=CHAR}, #{creationDate,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=INTEGER}, 
       #{lastUpdateDate,jdbcType=TIMESTAMP}, #{lastUpdatedBy,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.cn.domain.User" >
+  <insert id="insertSelective" parameterType="com.cn.domain.User" useGeneratedKeys="true" keyProperty="id">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
