@@ -25,7 +25,7 @@ public class GlobalExceptionHandler
     {
         LOGGER.error(e.getMessage(),e);
         ResponseData responseData = new ResponseData(false);
-        responseData.setMessage("网络问题，操作失败");
+        responseData.setMsg("网络问题，操作失败");
         return responseData;
     }
 
@@ -34,7 +34,7 @@ public class GlobalExceptionHandler
     {
         LOGGER.error(e.getMessage(),e);
         ResponseData responseData = new ResponseData(false);
-        responseData.setMessage(e.getMessage());
+        responseData.setMsg(e.getMessage());
         return responseData;
     }
 }

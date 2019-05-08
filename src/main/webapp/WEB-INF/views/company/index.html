@@ -28,11 +28,11 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img">
-                    欢迎，招聘者
+                    欢迎，${company.account}
                 </a>
             </li>
             <li class="layui-nav-item">
-                <a href="">
+                <a href="${base.contextPath}/company/logout">
                     <span class="glyphicon glyphicon-off" aria-hidden="true" style="margin-right: 5px"></span>退出
                 </a>
             </li>
@@ -44,8 +44,8 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree" style="margin-top: 30px">
                 <li class="layui-nav-item layui-nav-itemed">
-                    <a href="${base.contextPath}/companyIframe/hrInformation" target="ibody" style="text-decoration:none;font-size: 20px;" >
-                        <i class="layui-icon layui-icon-friends" style="margin-right: 10px"></i>HR信息
+                    <a href="${base.contextPath}/companyIframe/hrInformation" target="ibody" style="text-decoration:none;" >
+                        <i class="layui-icon layui-icon-friends" style="font-size: 20px;margin-right: 10px"></i>HR信息
                     </a>
                 </li>
                 <li class="layui-nav-item">

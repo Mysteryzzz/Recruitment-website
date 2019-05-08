@@ -3,8 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <title>招聘列表</title>
+    <script src="${base.contextPath}/lib/jquery/jquery-2.2.4.js"></script>
+    <script src="${base.contextPath}/lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="${base.contextPath}/lib/layui/layui.all.js"></script>
+    <link href="${base.contextPath}/lib/layui/css/layui.css" rel="stylesheet" type="text/css">
+    <link href="${base.contextPath}/lib/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-招聘列表
+<!--新增按钮模态框-->
+<div class="modal fade" id="positionModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">发布招聘</h4>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<table id="demo" lay-filter="test" ></table>
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="add" id="position_add">发布招聘</button>
+        <button class="layui-btn layui-btn-sm" lay-event="delete">删除</button>
+        <button class="layui-btn layui-btn-sm" lay-event="update">编辑</button>
+    </div>
+</script>
 </body>
+<script>
+    layui.use('table',function () {
+      var table = layui.table;
+
+        //数据表格渲染
+        table.render({
+            elem: '#demo',
+            height: 500,
+            url: '${base.contextPath}/company/queryListByCompanyId',
+            page: true,
+            toolbar:'#toolbarDemo',
+            defaultToolbar: ['filter', 'print', 'exports'],
+            request: {
+                pageName: 'page' //页码的参数名称，默认：page
+                ,limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            },
+            title:'招聘岗位列表',
+            cols: [[
+                {type:'checkbox',fixed:'left'}
+                ,{field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
+                ,{field: 'positionName', title: '职位名称',align:'center'}
+                ,{field: 'salary', title: '薪资', sort: true,align:'center'}
+                ,{field: 'count', title: '需要人数',align:'center'}
+                ,{field: 'locationCode', title: '工作地点',align:'center'}
+                ,{field: 'endTime', title: '截止时间',sort: true,align:'center'}
+                ,{field: 'state', title: '状态' ,align:'center'}
+            ]]
+        });
+
+        table.on('toolbar(test)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'add':
+                    // var data = checkStatus.data;
+                    // layer.alert(JSON.stringify(data));
+                    $("#positionModel").modal({
+                        backdrop:"static"
+                    });
+                    break;
+                case 'delete':
+                    var data = checkStatus.data;
+                    layer.msg('选中了：'+ data.length + ' 个');
+                    break;
+                case 'update':
+                    layer.msg(checkStatus.isAll ? '全选': '未全选');
+                    break;
+            };
+        });
+    });
+
+
+</script>
 </html>

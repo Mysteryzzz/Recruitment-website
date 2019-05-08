@@ -6,5 +6,9 @@
     <typeHandlers>
         <typeHandler javaType='com.cn.constant.AuthType' handler='com.cn.handler.AuthTypeHandler' />
     </typeHandlers>
+    
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+    </plugins>
 </configuration>
 

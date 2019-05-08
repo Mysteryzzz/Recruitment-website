@@ -163,7 +163,7 @@
   </update>
 
   <select id="selectByAccount" resultMap="BaseResultMap">
-    select u.account,u.password,u.email,u.phone,u.enable,u.type
+    select u.id,u.account,u.password,u.email,u.phone,u.enable,u.type
     from  user u
     WHERE u.account = #{account}
     <if test="password != null" >

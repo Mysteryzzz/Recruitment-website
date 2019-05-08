@@ -1,8 +1,17 @@
 package com.cn.company.controller;
 
+import com.cn.company.domain.Company;
+import com.cn.company.service.CompanyHrInfoService;
+import com.cn.company.service.ICompanyService;
+import com.cn.controller.BaseController;
+import com.cn.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * @description:
@@ -12,18 +21,33 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @RequestMapping("/companyIframe")
 @Controller
-public class CompanyIframeController {
+public class CompanyIframeController extends BaseController {
+
+    @Autowired
+    CompanyHrInfoService hrInfoService;
+
+    @Autowired
+    ICompanyService companyService;
+
 
     @RequestMapping("/hrInformation")
-    public ModelAndView hrInformation()
+    public ModelAndView hrInformation(HttpServletRequest request)
     {
-        return new ModelAndView("company/hrInformation");
+       User user =(User)getAttribute(request,"company");
+       User hr_user = hrInfoService.selectHrInfo(user.getId());
+       ModelAndView modelAndView = new ModelAndView("company/hrInformation");
+       modelAndView.addObject("hr",hr_user);
+        return modelAndView;
     }
 
     @RequestMapping("/companyInfo")
-    public ModelAndView companyInfo()
+    public ModelAndView companyInfo(HttpServletRequest request)
     {
-        return  new ModelAndView("/company/companyInfo");
+        User user =(User)getAttribute(request,"company");
+        Company company = companyService.selectCompanyInfo(user.getId());
+        ModelAndView modelAndView = new ModelAndView("/company/companyInfo");
+        modelAndView.addObject("companyInfo",company);
+        return  modelAndView;
     }
 
     @RequestMapping("/postRecruitment")

@@ -1,6 +1,7 @@
 package com.cn.controller;
 
 import com.cn.domain.ResponseData;
+import com.cn.domain.User;
 import com.cn.exception.BaseException;
 import com.cn.util.RequestUtil;
 import org.apache.ibatis.ognl.OgnlException;
@@ -30,43 +31,9 @@ public class BaseController
     protected static final String DEFAULT_PAGE = "1";
     protected static final String DEFAULT_PAGE_SIZE = "10";
 
-    @Autowired
-    private MessageSource messageSource;
-
-    private Logger logger = LoggerFactory.getLogger(BaseController.class);
-
-    @ExceptionHandler({Exception.class})
-    public Object exceptionHandler(Exception exception, HttpServletRequest request) {
-        this.logger.error(exception.getMessage(), exception);
-        if (RequestUtil.isAjaxRequest(request)) {
-            Throwable thr = this.getRootCause(exception);
-            ResponseData res = new ResponseData(false);
-            if (thr instanceof BaseException) {
-                BaseException be = (BaseException)thr;
-                Locale locale = RequestContextUtils.getLocale(request);
-                String messageKey = be.getDescriptionKey();
-                String message = this.messageSource.getMessage(messageKey, be.getParameters(), messageKey, locale);
-                res.setCode(be.getCode());
-                res.setMessage(message);
-            } else {
-                res.setMessage(thr.getMessage());
-            }
-
-            return res;
-        } else {
-            return new ModelAndView("500");
-        }
-    }
-
-    private Throwable getRootCause(Throwable throwable) {
-        while(throwable.getCause() != null) {
-            throwable = throwable.getCause();
-        }
-
-        if (throwable instanceof OgnlException && ((OgnlException)throwable).getReason() != null) {
-            return this.getRootCause(((OgnlException)throwable).getReason());
-        } else {
-            return throwable;
-        }
+    public Object getAttribute(HttpServletRequest request,String message)
+    {
+        Object attribute = request.getSession().getAttribute(message);
+        return attribute;
     }
 }

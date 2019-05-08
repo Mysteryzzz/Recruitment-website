@@ -9,18 +9,19 @@ package com.cn.domain;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.github.pagehelper.Page;
+
 import java.util.List;
 
 public class ResponseData {
     @JsonInclude(Include.NON_NULL)
     private String code;
     @JsonInclude(Include.NON_NULL)
-    private String message;
+    private String msg;
     @JsonInclude(Include.NON_NULL)
-    private List<?> rows;
+    private List<?> data;
     private boolean success;
     @JsonInclude(Include.NON_NULL)
-    private Long total;
+    private Long count;
 
     public ResponseData() {
         this.success = true;
@@ -33,29 +34,18 @@ public class ResponseData {
 
     public ResponseData(List<?> list) {
         this(true);
-        this.setRows(list);
+        this.code = "0";
+        this.setData(list);
         if (list instanceof Page) {
-            this.setTotal(((Page)list).getTotal());
+            this.setCount(((Page)list).getTotal());
         } else {
-            this.setTotal((long)list.size());
+            this.setCount((long)list.size());
         }
 
     }
 
     public String getCode() {
         return this.code;
-    }
-
-    public String getMessage() {
-        return this.message;
-    }
-
-    public List<?> getRows() {
-        return this.rows;
-    }
-
-    public Long getTotal() {
-        return this.total;
     }
 
     public boolean isSuccess() {
@@ -66,20 +56,35 @@ public class ResponseData {
         this.code = code;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
 
-    public void setRows(List<?> rows) {
-        this.rows = rows;
-    }
 
     public void setSuccess(boolean success) {
         this.success = success;
     }
 
-    public void setTotal(Long total) {
-        this.total = total;
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public List<?> getData() {
+        return data;
+    }
+
+    public void setData(List<?> data) {
+        this.data = data;
+    }
+
+    public Long getCount() {
+        return count;
+    }
+
+    public void setCount(Long count) {
+        this.count = count;
     }
 }
 

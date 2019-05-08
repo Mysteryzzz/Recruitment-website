@@ -71,7 +71,7 @@
         </javaClientGenerator>
 
 
-        <table tableName="company" domainObjectName="Company"
+        <table tableName="position" domainObjectName="Position"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

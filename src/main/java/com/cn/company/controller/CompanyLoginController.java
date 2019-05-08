@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -34,5 +35,12 @@ public class CompanyLoginController {
         HttpSession session = request.getSession();
         session.setAttribute("company",user);
         return new ResponseData(true);
+    }
+
+    @RequestMapping(value = "/logout",method = RequestMethod.GET)
+    public ModelAndView logout(HttpServletRequest request)
+    {
+        request.getSession().invalidate();
+        return new ModelAndView("/company/login");
     }
 }

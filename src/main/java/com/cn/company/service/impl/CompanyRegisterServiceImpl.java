@@ -4,8 +4,10 @@ import com.cn.company.dao.CompanyMapper;
 import com.cn.company.domain.Company;
 import com.cn.company.service.ICompanyRegisterService;
 import com.cn.constant.AuthType;
+import com.cn.constant.Constants;
 import com.cn.dao.UserMapper;
 import com.cn.domain.User;
+import com.cn.util.QiniuUtil;
 import com.cn.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,16 +38,12 @@ public class CompanyRegisterServiceImpl implements ICompanyRegisterService {
     public void registerCompany(MultipartFile[] files, HttpServletRequest request, User user, Company company) throws IOException {
 
         //得到文件上传的保存目录
-        String path = "D:/upload/";
-        String companyLogo = path + Utils.makeFileName(files[0].getOriginalFilename());
-        String companyIdCard = path + Utils.makeFileName(files[1].getOriginalFilename());
-        String companyBussines = path + Utils.makeFileName(files[2].getOriginalFilename());
+        String companyLogo = QiniuUtil.fileUpload(files[0].getInputStream(), Utils.makeFileName(files[0].getOriginalFilename()));;
+        String companyIdCard = QiniuUtil.fileUpload(files[1].getInputStream(), Utils.makeFileName(files[1].getOriginalFilename()));
+        String companyBussines =QiniuUtil.fileUpload(files[2].getInputStream(), Utils.makeFileName(files[2].getOriginalFilename()));
         company.setCompanyLogo(companyLogo);
         company.setIdCard(companyIdCard);
         company.setCompanyBussines(companyBussines);
-        Utils.upload(files[0], companyLogo);
-        Utils.upload(files[1], companyIdCard);
-        Utils.upload(files[2], companyBussines);
         user.setType(AuthType.COMPANY_TYPE);
         user.setEnable("1");
         userMapper.insertSelective(user);

@@ -1,10 +1,143 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>公司信息</title>
-</head>
+<#include "header.html"/>
+<style>
+    img{
+        width: 150px;
+    }
+</style>
 <body>
-公司信息
+<div style="margin-top: 100px;margin-left: 100px;width: 600px">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>公司信息</legend>
+    </fieldset>
+    <form class="layui-form" action="${base.contextPath}/company/updateCompanyInfo" method="post" enctype = "multipart/form-data">
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">公司全称:</label>
+            <div class="layui-input-block">
+                <input type="text" name="companyAllName" lay-verify="required" autocomplete="off" placeholder="请输入公司全称" class="layui-input" value="${companyInfo.companyAllName}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">公司简称:</label>
+            <div class="layui-input-block">
+                <input type="text" name="companyName" lay-verify="required" placeholder="请输入公司简称" autocomplete="off" class="layui-input" value="${companyInfo.companyName}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">公司logo:</label>
+            <div class="layui-input-block">
+                <label for="logo"></label>
+                <div class="preview_box1" style="float: left">
+                    <img src="${companyInfo.companyLogo}">
+                </div>
+                <div style="float:left;">
+                    <input id="logo" type="file" name="file1"  placeholder="选择公司logo" autocomplete="off" class="layui-input" value="${companyInfo.companyLogo}">    
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">省份:</label>
+            <div class="layui-input-block">
+                <input type="text" name="companyLocation" lay-verify="required" placeholder="请选择公司所在省份" autocomplete="off" class="layui-input" value="${companyInfo.companyLocation}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">详细地址:</label>
+            <div class="layui-input-block">
+                <input type="text" name="companyLocationInfo" lay-verify="required" placeholder="请输入公司详细地址" autocomplete="off" class="layui-input" value="${companyInfo.companyLocationInfo}">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label" style="width: 100px" >公司介绍:</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入内容" name="companyIntr" class="layui-textarea">${companyInfo.companyIntr}</textarea>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label" style="width: 100px">产品介绍:</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入内容" name="productIntr" class="layui-textarea">${companyInfo.productIntr}</textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">身份证:</label>
+            <div class="layui-input-block">
+                <label for="idCard"></label>
+                <div class="preview_box2" style="float:left;">
+                    <img src="${companyInfo.idCard}">
+                </div>
+                <div style="float:left;">
+                    <input id="idCard" type="file" name="file2" placeholder="请上传手持身份证拍照" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">营业执照:</label>
+            <div class="layui-input-block">
+                <label for="companyBussines"></label>
+                <div class="preview_box3" style="float: left">
+                    <img src="${companyInfo.companyBussines}">
+                </div>
+                <div  style="float: left">
+                    <input id="companyBussines" type="file" name="file3"  placeholder="请上传公司营业执照图片" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="demo1">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //各种基于事件的操作，下面会有进一步介绍
+    });
+    $("#logo").on("change", function(e) {
+        var file = e.target.files[0]; //获取图片资源
+        // 只选择图片文件
+        if (!file.type.match('image.*')) {
+            return false;
+        }
+        var reader = new FileReader();
+        reader.readAsDataURL(file); // 读取文件
+        // 渲染文件
+        reader.onload = function(arg) {
+            console.log(arg.target.result);
+            var img = '<img class="preview" src="' + arg.target.result + '" alt="preview"/>';
+            $(".preview_box1").empty().append(img);
+        }
+    });
+    $("#idCard").on("change", function(e) {
+        var file = e.target.files[0]; //获取图片资源
+        // 只选择图片文件
+        if (!file.type.match('image.*')) {
+            return false;
+        }
+        var reader = new FileReader();
+        reader.readAsDataURL(file); // 读取文件
+        // 渲染文件
+        reader.onload = function(arg) {
+            var img = '<img class="preview" src="' + arg.target.result + '" alt="preview"/>';
+            $(".preview_box2").empty().append(img);
+        }
+    });
+    $("#companyBussines").on("change", function(e) {
+        var file = e.target.files[0]; //获取图片资源
+        // 只选择图片文件
+        if (!file.type.match('image.*')) {
+            return false;
+        }
+        var reader = new FileReader();
+        reader.readAsDataURL(file); // 读取文件
+        // 渲染文件
+        reader.onload = function(arg) {
+            var img = '<img class="preview" src="' + arg.target.result + '" alt="preview"/>';
+            $(".preview_box3").empty().append(img);
+        }
+    });
+</script>
 </body>
 </html>
