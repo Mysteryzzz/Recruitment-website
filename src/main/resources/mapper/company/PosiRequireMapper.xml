@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.company.dao.PosiRequireMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.company.domain.PosiRequire" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="position_id" property="positionId" jdbcType="INTEGER" />
+    <result column="message" property="message" jdbcType="VARCHAR" />
+    <result column="creation_date" property="creationDate" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="INTEGER" />
+    <result column="last_update_date" property="lastUpdateDate" jdbcType="TIMESTAMP" />
+    <result column="last_updated_by" property="lastUpdatedBy" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, position_id, message, creation_date, created_by, last_update_date, last_updated_by
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from posi_require
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from posi_require
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.company.domain.PosiRequire" >
+    insert into posi_require (id, position_id, message, 
+      creation_date, created_by, last_update_date, 
+      last_updated_by)
+    values (#{id,jdbcType=INTEGER}, #{positionId,jdbcType=INTEGER}, #{message,jdbcType=VARCHAR}, 
+      #{creationDate,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=INTEGER}, #{lastUpdateDate,jdbcType=TIMESTAMP}, 
+      #{lastUpdatedBy,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.company.domain.PosiRequire" >
+    insert into posi_require
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="positionId != null" >
+        position_id,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+      <if test="creationDate != null" >
+        creation_date,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="lastUpdateDate != null" >
+        last_update_date,
+      </if>
+      <if test="lastUpdatedBy != null" >
+        last_updated_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="positionId != null" >
+        #{positionId,jdbcType=INTEGER},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="creationDate != null" >
+        #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=INTEGER},
+      </if>
+      <if test="lastUpdateDate != null" >
+        #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdatedBy != null" >
+        #{lastUpdatedBy,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.company.domain.PosiRequire" >
+    update posi_require
+    <set >
+      <if test="positionId != null" >
+        position_id = #{positionId,jdbcType=INTEGER},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="creationDate != null" >
+        creation_date = #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=INTEGER},
+      </if>
+      <if test="lastUpdateDate != null" >
+        last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdatedBy != null" >
+        last_updated_by = #{lastUpdatedBy,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.company.domain.PosiRequire" >
+    update posi_require
+    set position_id = #{positionId,jdbcType=INTEGER},
+      message = #{message,jdbcType=VARCHAR},
+      creation_date = #{creationDate,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=INTEGER},
+      last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      last_updated_by = #{lastUpdatedBy,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <delete id="deleteByPositionId" parameterType="java.lang.Integer">
+    delete from posi_require
+    where position_id = #{positionId,jdbcType=INTEGER}
+  </delete>
+
+  <update id="updateByPositionIdSelective" parameterType="com.cn.company.domain.PosiRequire">
+    update posi_require
+    <set >
+      <if test="message != null" >
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="creationDate != null" >
+        creation_date = #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=INTEGER},
+      </if>
+      <if test="lastUpdateDate != null" >
+        last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdatedBy != null" >
+        last_updated_by = #{lastUpdatedBy,jdbcType=INTEGER},
+      </if>
+    </set>
+    where position_id = #{positionId,jdbcType=INTEGER}
+  </update>
+</mapper>

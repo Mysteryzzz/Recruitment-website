@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.user.dao.ResumeMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.user.domain.Resume" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="CHAR" />
+    <result column="nation_code" property="nationCode" jdbcType="VARCHAR" />
+    <result column="education_code" property="educationCode" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="INTEGER" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="skills" property="skills" jdbcType="VARCHAR" />
+    <result column="expect_salary" property="expectSalary" jdbcType="DOUBLE" />
+    <result column="created_by" property="createdBy" jdbcType="INTEGER" />
+    <result column="creation_date" property="creationDate" jdbcType="TIMESTAMP" />
+    <result column="last_updated_by" property="lastUpdatedBy" jdbcType="INTEGER" />
+    <result column="last_update_date" property="lastUpdateDate" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="expect_position" property="expectPosition" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, sex, nation_code, education_code, phone, email, location, skills, expect_salary, 
+    created_by, creation_date, last_updated_by, last_update_date, user_id, expect_position
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from resume
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from resume
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.user.domain.Resume" >
+    insert into resume (id, name, sex, nation_code, 
+      education_code, phone, email, 
+      location, skills, expect_salary, 
+      created_by, creation_date, last_updated_by, 
+      last_update_date, user_id, expect_position
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, #{nationCode,jdbcType=VARCHAR}, 
+      #{educationCode,jdbcType=VARCHAR}, #{phone,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, 
+      #{location,jdbcType=VARCHAR}, #{skills,jdbcType=VARCHAR}, #{expectSalary,jdbcType=DOUBLE}, 
+      #{createdBy,jdbcType=INTEGER}, #{creationDate,jdbcType=TIMESTAMP}, #{lastUpdatedBy,jdbcType=INTEGER}, 
+      #{lastUpdateDate,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER}, #{expectPosition,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.user.domain.Resume" >
+    insert into resume
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="nationCode != null" >
+        nation_code,
+      </if>
+      <if test="educationCode != null" >
+        education_code,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="skills != null" >
+        skills,
+      </if>
+      <if test="expectSalary != null" >
+        expect_salary,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="creationDate != null" >
+        creation_date,
+      </if>
+      <if test="lastUpdatedBy != null" >
+        last_updated_by,
+      </if>
+      <if test="lastUpdateDate != null" >
+        last_update_date,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="expectPosition != null" >
+        expect_position,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="nationCode != null" >
+        #{nationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="educationCode != null" >
+        #{educationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="skills != null" >
+        #{skills,jdbcType=VARCHAR},
+      </if>
+      <if test="expectSalary != null" >
+        #{expectSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=INTEGER},
+      </if>
+      <if test="creationDate != null" >
+        #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdatedBy != null" >
+        #{lastUpdatedBy,jdbcType=INTEGER},
+      </if>
+      <if test="lastUpdateDate != null" >
+        #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="expectPosition != null" >
+        #{expectPosition,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.user.domain.Resume" >
+    update resume
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="nationCode != null" >
+        nation_code = #{nationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="educationCode != null" >
+        education_code = #{educationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="skills != null" >
+        skills = #{skills,jdbcType=VARCHAR},
+      </if>
+      <if test="expectSalary != null" >
+        expect_salary = #{expectSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=INTEGER},
+      </if>
+      <if test="creationDate != null" >
+        creation_date = #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdatedBy != null" >
+        last_updated_by = #{lastUpdatedBy,jdbcType=INTEGER},
+      </if>
+      <if test="lastUpdateDate != null" >
+        last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="expectPosition != null" >
+        expect_position = #{expectPosition,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.user.domain.Resume" >
+    update resume
+    set name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      nation_code = #{nationCode,jdbcType=VARCHAR},
+      education_code = #{educationCode,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      skills = #{skills,jdbcType=VARCHAR},
+      expect_salary = #{expectSalary,jdbcType=DOUBLE},
+      created_by = #{createdBy,jdbcType=INTEGER},
+      creation_date = #{creationDate,jdbcType=TIMESTAMP},
+      last_updated_by = #{lastUpdatedBy,jdbcType=INTEGER},
+      last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER},
+      expect_position = #{expectPosition,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
