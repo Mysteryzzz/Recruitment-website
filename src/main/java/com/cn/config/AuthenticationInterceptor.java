@@ -57,3 +57,30 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
 
 }
+//
+//    MethodSignature methodSignature = (MethodSignature)signature;
+//    Method targetMethod = methodSignature.getMethod();
+//
+//    Class clazz = targetMethod.getClass();
+//    if(clazz.isAnnotationPresent(Permission.class)){
+//        //获取方法上注解中表明的权限
+//        Permission permission = (Permission)clazz.getAnnotation(Permission.class);
+//        String module = permission.module();
+//        String operation = permission.operation();
+//        Privilege privilege = new Privilege(new PrivilegePK(module, operation));
+//        //获取当前用户拥有的权限
+//        User user = (User)ContextUtils.getHttpSession().getAttribute("employer");
+//        if(null != user){
+//        System.out.println(user.getUsername());
+//        }
+//        Set<Role> roles = user.getRoles();
+//        for(Role role : roles){
+//        if(role.getPrivileges().contains(privilege)){
+//        //如果当前用户拥有的权限包含方法注解上的权限,则执行被拦截到的方法
+//        return pjp.proceed();
+//        }
+//        }
+//        //如果没有权限,抛出异常,由Spring框架捕获,跳转到错误页面
+//        throw new PermissionException();
+//        }
+//        return pjp.proceed();
