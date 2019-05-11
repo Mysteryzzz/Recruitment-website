@@ -9,11 +9,88 @@
     <link href="${base.contextPath}/lib/layui/css/layui.css" rel="stylesheet" type="text/css">
     <link href="${base.contextPath}/lib/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 </head>
-<body class="layui-layout-body">
-    <div>
-        <div style="height: 50px;background-color: #303640">
+<style>
+    body{
+        padding: 0px;
+        margin: 0px;
+    }
+</style>
 
+<body class="layui-layout-body">
+<div>
+    <div style="height: 50px;background-color: #303640">
+        <a href="${base.contextPath}/index.html">
+            <img src="${base.contextPath}/lib/image/logo.png"  height="40px" width="45px" style="margin-top:6px ;float: left;margin-left: 180px;">
+        </a>
+        <div style="font-size: 30px;margin-top:8px ;float: left;">
+            <a href="${base.contextPath}/index.html" style="color: #ffffff;text-decoration: none">英聘</a>
+        </div>
+        <div style="float: left;font-size: 17px;line-height: 60px">
+            <ul>
+                <li style="float: left;margin-left: 100px;width: 70px;height: 50px">
+                    <a href="${base.contextPath}/index.html" style="color: #ffffff;margin-left: 17px;text-decoration: none">首页</a>
+                </li>
+                <li style="float: left;width: 70px;height: 50px">
+                    <a href="${base.contextPath}/indexIframe/positionList" style="color: #ffffff;margin-left: 17px;text-decoration: none;">职位</a>
+                </li>
+                <li style="float: left;width: 70px;height: 50px;">
+                    <a href="${base.contextPath}/indexIframe/companyList" style="color: #ffffff;margin-left: 17px;text-decoration: none;">公司</a>
+                </li>
+            </ul>
+        </div>
+        <div style="float: right; margin-right: 100px;margin-top: 20px;color: #ffffff">
+            <#if user??>
+            <div style="float: left;margin-right: 20px">
+                <label>欢迎，${user.account}</label>
+                <a href="${base.contextPath}/UserIframe/userInfos" style="color: #ffffff;text-decoration: none">个人中心</a>
+            </div>
+            <#else>
+            <div style="float: left;margin-right: 20px">
+                <a href="${base.contextPath}/user/login.html" style="color: #ffffff;text-decoration: none">请登录</a>
+            </div>
+        </#if>
+            <div style="float: left;margin-right: 20px">
+                |
+            </div>
+            <div style="float: left">
+                <a href="${base.contextPath}/company/login.html" style="color: #ffffff;text-decoration: none">企业版登录</a>
+            </div>
         </div>
     </div>
+</div>
+
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-side layui-bg-black" style="margin-top: -10px">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="${base.contextPath}/UserIframe/userInfo" target="ibody" style="text-decoration:none;" >
+                        <i class="layui-icon layui-icon-friends" style="font-size: 20px;margin-right: 10px"></i>个人信息
+                    </a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="${base.contextPath}/UserIframe/myResume" target="ibody" style="text-decoration:none" >
+                        <i class="layui-icon layui-icon-component" style="font-size: 20px;margin-right: 10px"></i>我的简历
+                    </a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="${base.contextPath}/UserIframe/myApplication" target="ibody" style="text-decoration:none" >
+                        <i class="layui-icon layui-icon-note" style="font-size: 20px;margin-right: 10px"></i>我的申请
+                    </a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="${base.contextPath}/UserIframe/myMessage" target="ibody" style="text-decoration:none" >
+                        <i class="layui-icon layui-icon-list" style="font-size: 20px;margin-right: 10px"></i>我的消息
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body" style="bottom: 0px;margin-top: -10px" >
+        <iframe src="${base.contextPath}/UserIframe/userInfo" frameborder="0"  marginheight="0px" marginwidth="0px" style="position: absolute;width: 100%;height: 100%;left: 0;top: 0;right: 0;bottom: 0" name="ibody" ></iframe>
+    </div>
+</div>
 </body>
 </html>

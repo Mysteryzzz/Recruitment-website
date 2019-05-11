@@ -13,10 +13,11 @@
     <result column="created_by" property="createdBy" jdbcType="INTEGER" />
     <result column="last_update_date" property="lastUpdateDate" jdbcType="TIMESTAMP" />
     <result column="last_updated_by" property="lastUpdatedBy" jdbcType="INTEGER" />
+    <result column="is_resumed" property="isResumed" jdbcType="INTEGER"/>
   </resultMap>
   <sql id="Base_Column_List" >
     id, account, password, email, phone, type, enable, creation_date, created_by, last_update_date, 
-    last_updated_by
+    last_updated_by,is_resumed
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

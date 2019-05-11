@@ -11,19 +11,198 @@
 </head>
 <body>
 <!--新增按钮模态框-->
-<div class="modal fade" id="positionModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="positionAddModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">发布招聘</h4>
+                <h4 class="modal-title" id="myModaladdLabel">发布招聘</h4>
             </div>
             <div class="modal-body">
-                ...
+                <form class="layui-form">
+                    <input name="id" hidden>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">岗位名称:</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="positionName" lay-verify="required" autocomplete="off" placeholder="请输入岗位名称" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">工资:</label>
+                        <div class="layui-input-block">
+                            <input type="number" name="salary" lay-verify="required" placeholder="请输入工资" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">需要人数:</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="count" lay-verify="required" placeholder="请输入人数" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">截至日期:</label>
+                        <div class="layui-input-block">
+                            <input id="endTime" type="text" name="endTime" lay-verify="required" placeholder="请输入截至日期" autocomplete="off" class="layui-input endTime">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">工作地点:</label>
+                        <div class="layui-input-block">
+                            <select  name="locationCode">
+                                <option value="">请选择省</option>
+                                <option value="浙江">浙江省</option>
+                                <option value="江西">江西省</option>
+                                <option value="福建">福建省</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">工作经验:</label>
+                        <div class="layui-input-block">
+                            <select  name="experienceCode">
+                                <option value="">请选择工作经验</option>
+                                <option value="1年">1年</option>
+                                <option value="1-3年">1-3年</option>
+                                <option value="3年">3年</option>
+                                <option value="3-5年">3-5年</option>
+                                <option value="5年">5年</option>
+                                <option value="5-10年">5-10年</option>
+                                <option value="10年及以上">10年及以上</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">学历要求:</label>
+                        <div class="layui-input-block">
+                            <select  name="educationCode">
+                                <option value="">请选择学历</option>
+                                <option value="本科以下">本科以下</option>
+                                <option value="本科">本科</option>
+                                <option value="本科以上">本科以上</option>
+                                <option value="研究生">研究生</option>
+                                <option value="博士生">博士生</option>
+                                <option value="研究生及以上">研究生及以上</option>
+                                <option value="本科或研究生">本科或研究生</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">岗位职责:</label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="请输入岗位职责" name="responseMessage" class="layui-textarea" lay-verify="required"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">任职要求:</label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="请输入任职要求" name="requireMessage" class="layui-textarea" lay-verify="required"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="btn btn-primary" lay-submit lay-filter="submit">发布招聘</button>
+                            <button type="reset" class="btn btn-default" style="margin-left: 20px">重置</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+    </div>
+</div>
+<!--编辑按钮模态框-->
+<div class="modal fade" id="positionEditModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">更新招聘信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="layui-form" lay-filter="edit">
+                    <input name="id" hidden>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">岗位名称:</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="positionName" lay-verify="required" autocomplete="off" placeholder="请输入岗位名称" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">工资:</label>
+                        <div class="layui-input-block">
+                            <input type="number" name="salary" lay-verify="required" placeholder="请输入工资" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">需要人数:</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="count" lay-verify="required" placeholder="请输入人数" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">截至日期:</label>
+                        <div class="layui-input-block">
+                            <input id="endtime1"  type="text" name="endTime" lay-verify="required" placeholder="请输入截至日期" autocomplete="off" class="layui-input endTime">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">工作地点:</label>
+                        <div class="layui-input-block">
+                            <select id="locationCode"  name="locationCode">
+                                <option value="">请选择省</option>
+                                <option value="浙江">浙江省</option>
+                                <option value="江西">江西省</option>
+                                <option value="福建">福建省</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">工作经验:</label>
+                        <div class="layui-input-block">
+                            <select id="experienceCode"  name="experienceCode">
+                                <option value="">请选择工作经验</option>
+                                <option value="1年">1年</option>
+                                <option value="1-3年">1-3年</option>
+                                <option value="3年">3年</option>
+                                <option value="3-5年">3-5年</option>
+                                <option value="5年">5年</option>
+                                <option value="5-10年">5-10年</option>
+                                <option value="10年及以上">10年及以上</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">学历要求:</label>
+                        <div class="layui-input-block">
+                            <select id="educationCode"  name="educationCode">
+                                <option value="">请选择学历</option>
+                                <option value="本科以下">本科以下</option>
+                                <option value="本科">本科</option>
+                                <option value="本科以上">本科以上</option>
+                                <option value="研究生">研究生</option>
+                                <option value="博士生">博士生</option>
+                                <option value="研究生及以上">研究生及以上</option>
+                                <option value="本科或研究生">本科或研究生</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">岗位职责:</label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="请输入岗位职责" name="responseMessage" class="layui-textarea" lay-verify="required"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">任职要求:</label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="请输入任职要求" name="requireMessage" class="layui-textarea" lay-verify="required"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="btn btn-primary" lay-submit lay-filter="update">更新</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -31,16 +210,92 @@
 <table id="demo" lay-filter="test" ></table>
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="add" id="position_add">发布招聘</button>
-        <button class="layui-btn layui-btn-sm" lay-event="delete">删除</button>
-        <button class="layui-btn layui-btn-sm" lay-event="update">编辑</button>
+        <button class="layui-btn layui-btn-normal" lay-event="add" id="position_add">发布招聘</button>
+        <button class="layui-btn layui-btn-danger" lay-event="delete">删除</button>
     </div>
+</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 </body>
 <script>
-    layui.use('table',function () {
-      var table = layui.table;
+    layui.use(['table','form','laydate'],function () {
+          var table = layui.table;
 
+          var  form = layui.form;
+          form.render('select');
+
+          var laydate = layui.laydate;
+          laydate.render({
+             elem:'#endTime'
+          })
+
+            laydate.render({
+            elem:'#endtime1'
+            })
+
+        //新增表单提交
+            form.on('submit(submit)', function(data){
+                $.ajax({
+                    type:'POST',
+                    url:'${base.contextPath}/company/insertPosition',
+                    data: data.field,
+                    async:false,
+                    success:function (res) {
+                        if(!res.success)
+                        {
+                            alert("发布失败");
+                        }
+                        else{
+                            layer.confirm('发布成功', function(index){
+                                layer.close(index);
+                                $("#positionAddModel").modal('hide');
+                                table.reload('demo',{
+                                    where: { //设定异步数据接口的额外参数，任意设
+                                    }
+                                    ,page: {
+                                        page: 1
+                                    }
+                                });
+                            });
+                        }
+                    }
+
+                })
+                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
+
+          //更新表单提交
+        form.on('submit(update)', function(data){
+            $.ajax({
+                type:'POST',
+                url:'${base.contextPath}/company/insertPosition',
+                data: data.field,
+                async:false,
+                success:function (res) {
+                    if(!res.success)
+                    {
+                        alert("发布失败");
+                    }
+                    else{
+                        layer.confirm('更新成功', function(index){
+                            layer.close(index);
+                            $("#positionEditModel").modal('hide');
+                            table.reload('demo',{
+                                where: { //设定异步数据接口的额外参数，任意设
+                                }
+                                ,page: {
+                                    page: 1
+                                }
+                            });
+                        });
+                    }
+                }
+
+            })
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
         //数据表格渲染
         table.render({
             elem: '#demo',
@@ -52,41 +307,140 @@
             request: {
                 pageName: 'page' //页码的参数名称，默认：page
                 ,limitName: 'pageSize' //每页数据量的参数名，默认：limit
-            },
-            title:'招聘岗位列表',
+            }
+            ,even: true //开启隔行背景
+            ,title:'招聘岗位列表',
             cols: [[
                 {type:'checkbox',fixed:'left'}
-                ,{field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
+                ,{field: 'id', title: 'ID', width:80, sort: true, fixed: 'left',hide:true}
                 ,{field: 'positionName', title: '职位名称',align:'center'}
                 ,{field: 'salary', title: '薪资', sort: true,align:'center'}
                 ,{field: 'count', title: '需要人数',align:'center'}
                 ,{field: 'locationCode', title: '工作地点',align:'center'}
                 ,{field: 'endTime', title: '截止时间',sort: true,align:'center'}
                 ,{field: 'state', title: '状态' ,align:'center'}
+                ,{ title: '操作' ,align:'center',toolbar: '#barDemo'}
             ]]
         });
 
+        //监听头工具栏事件
         table.on('toolbar(test)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id);
             switch(obj.event){
                 case 'add':
-                    // var data = checkStatus.data;
-                    // layer.alert(JSON.stringify(data));
-                    $("#positionModel").modal({
+                    //清空表单数据
+                    $("button[type=reset]").trigger("click");
+                    $("#positionAddModel").modal({
                         backdrop:"static"
                     });
                     break;
+                    //批量删除
                 case 'delete':
                     var data = checkStatus.data;
-                    layer.msg('选中了：'+ data.length + ' 个');
-                    break;
-                case 'update':
-                    layer.msg(checkStatus.isAll ? '全选': '未全选');
+                    console.log(data);
+                    if(data.length>0)
+                    {
+                        layer.confirm('确定删除？', function(index){
+                            $.ajax({
+                                type:'POST',
+                                url:'${base.contextPath}/company/batchDelete',
+                                contentType: 'application/json',
+                                data: JSON.stringify(data),
+                                success:function (res) {
+                                    if(!res.success) {
+                                        layer.alert("删除失败");
+                                    }
+                                    else{
+                                        layer.confirm('删除成功', function(index){
+                                            layer.close(index);
+                                            table.reload('demo',{
+                                                page: {
+                                                    page: 1
+                                                }
+                                            });
+                                        });
+                                    }
+                                }
+
+                            })
+                        })
+
+                    }
+                    else
+                    {
+                        layer.alert("请至少选中一行数据");
+                    }
                     break;
             };
         });
-    });
 
+        //监听行工具事件
+        table.on('tool(test)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'del'){
+                layer.confirm('真的删除这一行吗么', function(index){
+                    $.ajax({
+                        type:'POST',
+                        url:'${base.contextPath}/company/deleteByPositionId',
+                        data: {'id' : data.id},
+                        async:false,
+                        success:function (res) {
+                            if(!res.success)
+                            {
+                                layer.alert("删除失败");
+                            }
+                            else{
+                                layer.confirm('删除成功', function(index){
+                                    layer.close(index);
+                                    table.reload('demo',{
+                                        where: { //设定异步数据接口的额外参数，任意设
+                                        }
+                                        ,page: {
+                                            page: 1
+                                        }
+                                    });
+                                });
+                            }
+                        }
+
+                    })
+                });
+
+            } else if(obj.event === 'edit'){
+                $.ajax({
+                    type:'POST',
+                    url:'${base.contextPath}/company/selectByPositionId',
+                    data: {'id' : data.id},
+                    success:function (res) {
+                        console.log(res);
+                        var data = res.data;
+                        if(!res.success)
+                        {
+                            layer.alert(res.msg);
+                        }
+                        else{
+                            form.val('edit', {
+                                "id": data[0].id
+                                ,"positionName": data[0].positionName
+                                ,"count": data[0].count // "name": "value"
+                                ,"salary": data[0].salary
+                                ,"endTime": data[0].endTime
+                                ,"educationCode": data[0].educationCode //复选框选中状态
+                                ,"locationCode": data[0].locationCode//开关状态
+                                ,"experienceCode": data[0].experienceCode
+                                ,"requireMessage": data[0].requireMessage
+                                ,"responseMessage": data[0].responseMessage
+                            })
+                            $("#positionEditModel").modal({
+                                backdrop:"static"
+                            });
+                        }
+                    }
+
+                })
+            }
+        });
+    });
 
 </script>
 </html>

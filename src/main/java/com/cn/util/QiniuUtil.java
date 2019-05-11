@@ -22,16 +22,16 @@ import java.io.InputStream;
 
 public class QiniuUtil {
 
-    private static final String ACCESS_KEY = "Pis-xDcOD8mWvTskTqhzC4O5Zy6fb6cis3my5PoC";
-    private static final String SECRET_KEY = "-lBvxDqATaS6MlFSwyufRnF1IijXeJHJcZyCLySx";
-    private static final String BUCKET = "recruitment";
-    private static final String PATH = "pr4a6evzm.bkt.clouddn.com";
+    private static final String ACCESS_KEY = "FYZ2-x4KSE3guIf2VLwx7ufC-UOYd9sFuZ3IAjzF";
+    private static final String SECRET_KEY = "6PyHxCRo_DPJ6-B7G-R4Sl4JgxsiUUI1rUz3ZpEp";
+    private static final String BUCKET = "trickmaster";
+    private static final String PATH = "files.trickmaster.cn";
 
 
     public static String fileUpload(InputStream file, String fileName) {
 
 
-        Configuration configuration = new Configuration(Zone.zone0());
+        Configuration configuration = new Configuration(Zone.zone2());
         UploadManager uploadManager = new UploadManager(configuration);
 
 

@@ -15,4 +15,12 @@ import java.util.List;
 public interface ICompanyPositionService {
 
     List<Position> queryPositionList(Integer page,Integer pageSize,User user);
+
+    void UpdateOrInsertPosition(User user,Position position );
+
+    void deleteByPositionId(Integer id);
+
+    List<Position> selectByPositionId(Integer id);
+
+    void batchDelete(List<Position> list);
 }

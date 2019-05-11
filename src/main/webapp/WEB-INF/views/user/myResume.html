@@ -1,0 +1,97 @@
+<#include "header.html"/>
+<body>
+<div style="margin-top: 100px;margin-left: 100px;width: 600px">
+    <#if myresume??>
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>我的简历</legend>
+        </fieldset>
+    <#else>
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>创建简历</legend>
+        </fieldset>
+    <form class="layui-form" action="${base.contextPath}/user/createMyResume" method="post" enctype = "multipart/form-data">
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">姓名:</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input" value="" readonly>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">性别:</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="sex" lay-verify="required"autocomplete="off" class="layui-input" value="">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">民族:</label>
+            <div class="layui-input-block">
+                <input type="text" name="nationCode" lay-verify="email" autocomplete="off" class="layui-input" value="">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">学历:</label>
+            <div class="layui-input-block">
+                <input type="text" name="educationCode" lay-verify="phone"autocomplete="off" class="layui-input" value="">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">手机号:</label>
+            <div class="layui-input-block">
+                <input type="tel" name="phone" lay-verify="phone"autocomplete="off" class="layui-input" value="">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">邮箱:</label>
+            <div class="layui-input-block">
+                <input type="email" name="email" lay-verify="phone"autocomplete="off" class="layui-input" value="">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">家庭住址:</label>
+            <div class="layui-input-block">
+                <input type="text" name="location" lay-verify="phone"autocomplete="off" class="layui-input" value="">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label" style="width: 100px" >技能:</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入技能" name="skills" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">期望薪资:</label>
+            <div class="layui-input-block">
+                <input type="number" name="expectSalary" lay-verify="phone"autocomplete="off" class="layui-input" value="">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">求职意向:</label>
+            <div class="layui-input-block">
+                <input type="text" name="expectPosition" lay-verify="phone"autocomplete="off" class="layui-input" value="">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="create">
+                    保存
+                </button>
+            </div>
+        </div>
+    </form>
+    </#if>
+</div>
+<div>
+    项目经历
+</div>
+<div>
+    工作经历
+</div>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //各种基于事件的操作，下面会有进一步介绍
+    });
+</script>
+</body>
+</html>

@@ -22,9 +22,16 @@
                 </ul>
             </div>
             <div style="float: right; margin-right: 100px;margin-top: 20px;color: #ffffff">
+                <#if user??>
+                <div style="float: left;margin-right: 20px">
+                    <label>欢迎，${user.account}</label>
+                    <a href="${base.contextPath}/UserIframe/userInfos" style="color: #ffffff;text-decoration: none">个人中心</a>
+                </div>
+                <#else>
                 <div style="float: left;margin-right: 20px">
                     <a href="${base.contextPath}/user/login.html" style="color: #ffffff;text-decoration: none">请登录</a>
                 </div>
+            </#if>
                 <div style="float: left;margin-right: 20px">
                     |
                 </div>

@@ -25,6 +25,7 @@ public class User extends BaseDTO {
 
     private String salt;
 
+    private Integer isResumed;
     public User() {
 
     }
@@ -113,5 +114,11 @@ public class User extends BaseDTO {
 
     }
 
+    public Integer getIsResumed() {
+        return isResumed;
+    }
 
+    public void setIsResumed(Integer isResumed) {
+        this.isResumed = isResumed;
+    }
 }

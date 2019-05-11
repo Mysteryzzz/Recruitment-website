@@ -1,0 +1,54 @@
+<#include "header.html"/>
+<style>
+    img{
+        width: 150px;
+    }
+</style>
+<body>
+<div style="margin-top: 100px;margin-left: 100px;width: 600px">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>个人信息</legend>
+    </fieldset>
+    <form class="layui-form" action="${base.contextPath}/user/updateUserInfo" method="post">
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">账号:</label>
+            <div class="layui-input-block">
+                <input type="text" name="account" lay-verify="required" autocomplete="off" class="layui-input" value="${userInfo.account}" readonly>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">密码:</label>
+            <div class="layui-input-block">
+                <input type="text" name="password" lay-verify="required"autocomplete="off" class="layui-input" value="${userInfo.password}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">邮箱:</label>
+            <div class="layui-input-block">
+                <input type="email" name="email" lay-verify="email" autocomplete="off" class="layui-input" value="${userInfo.email}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">手机号:</label>
+            <div class="layui-input-block">
+                <input type="tel" name="phone" lay-verify="phone"autocomplete="off" class="layui-input" value="${userInfo.phone}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="demo1">
+                    保存
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //各种基于事件的操作，下面会有进一步介绍
+    });
+</script>
+</body>
+</html>
