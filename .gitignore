@@ -131,3 +131,4 @@ buildNumber.properties
 
 # End of https://www.gitignore.io/api/java,maven,java-web,intellij+all
 
+src/main/resources/jdbc.properties

@@ -4,7 +4,6 @@ import com.cn.company.dao.CompanyMapper;
 import com.cn.company.domain.Company;
 import com.cn.company.service.ICompanyRegisterService;
 import com.cn.constant.AuthType;
-import com.cn.constant.Constants;
 import com.cn.dao.UserMapper;
 import com.cn.domain.User;
 import com.cn.util.QiniuUtil;

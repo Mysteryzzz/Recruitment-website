@@ -5,6 +5,7 @@ import com.cn.domain.User;
 import com.cn.exception.MyException;
 import com.cn.constant.AuthType;
 import com.cn.user.service.ILoginService;
+import com.cn.util.EncryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +29,7 @@ public class LoginServiceImpl implements ILoginService
     @Override
     public User checkLogin(User user){
         user.setType(AuthType.USER_TYPE);
+        user.setPassword(EncryptUtil.encryptByMD5(user.getPassword()));
         User user1 = userMapper.selectByAccount(user);
         if(userMapper.selectByAccount(new User(user.getAccount(), AuthType.USER_TYPE))==null)
         {

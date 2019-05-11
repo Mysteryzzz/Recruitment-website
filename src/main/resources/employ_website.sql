@@ -13,6 +13,10 @@
 
  Date: 11/05/2019 16:39:03
 */
+CREATE DATABASE IF NOT EXISTS employ_website;
+
+USE employ_website;
+
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
@@ -304,3 +308,4 @@ CREATE TABLE `work_experience`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '工作经历表\r\n' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
+

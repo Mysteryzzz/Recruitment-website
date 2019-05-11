@@ -1,6 +1,5 @@
 package com.cn.company.service;
 
-import com.cn.company.domain.Company;
 import com.cn.domain.User;
 
 /**

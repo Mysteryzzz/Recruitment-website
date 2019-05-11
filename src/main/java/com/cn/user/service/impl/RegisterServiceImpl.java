@@ -3,6 +3,7 @@ package com.cn.user.service.impl;
 import com.cn.dao.UserMapper;
 import com.cn.domain.User;
 import com.cn.user.service.IRegisterService;
+import com.cn.util.EncryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,7 @@ public class RegisterServiceImpl implements IRegisterService {
 
     @Override
     public void registerUser(User user) {
+        user.setPassword(EncryptUtil.encryptByMD5(user.getPassword()));
         userMapper.insertSelective(user);
     }
 }
