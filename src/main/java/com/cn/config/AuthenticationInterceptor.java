@@ -1,5 +1,6 @@
 package com.cn.config;
 
+import com.cn.annotation.Permission;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
@@ -41,46 +42,37 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         return false;
     }
 
-    @Around("execution(* com.cn.*.controller..*(..))")
-    public Object beforeInterceptor(ProceedingJoinPoint joinPoint) {
-        Object[] args = joinPoint.getArgs();
-        HttpServletRequest request = (HttpServletRequest) args[0];
-        if (valid(request.getRequestURL().toString()) || (request.getSession().getAttribute("user") != null)) {
-            try {
+    @Around("execution(* com.cn.*.controller..*(..)) && @annotation(permission)")
+    public Object beforeInterceptor(ProceedingJoinPoint joinPoint, Permission permission) {
+        try {
+            // valid unauthorized url
+            Object[] args = joinPoint.getArgs();
+            HttpServletRequest request = (HttpServletRequest) args[0];
+            if (valid(request.getRequestURL().toString())) {
                 return joinPoint.proceed();
-            } catch (Throwable throwable) {
-                throwable.printStackTrace();
             }
+
+            //TODO delete unchecked permission but only checked user session plan
+            if (request.getSession().getAttribute("user") != null) {
+                return joinPoint.proceed();
+            }
+            // valid authorized url
+            if (permission.module() == "") {
+                //check module
+                // false : return null
+                if (permission.operation() == "") {
+                    //check operation
+                    // false : return null
+                }
+                return joinPoint.proceed();
+            }
+
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+            return null;
         }
         return null;
-    }
+}
 
 
 }
-//
-//    MethodSignature methodSignature = (MethodSignature)signature;
-//    Method targetMethod = methodSignature.getMethod();
-//
-//    Class clazz = targetMethod.getClass();
-//    if(clazz.isAnnotationPresent(Permission.class)){
-//        //获取方法上注解中表明的权限
-//        Permission permission = (Permission)clazz.getAnnotation(Permission.class);
-//        String module = permission.module();
-//        String operation = permission.operation();
-//        Privilege privilege = new Privilege(new PrivilegePK(module, operation));
-//        //获取当前用户拥有的权限
-//        User user = (User)ContextUtils.getHttpSession().getAttribute("employer");
-//        if(null != user){
-//        System.out.println(user.getUsername());
-//        }
-//        Set<Role> roles = user.getRoles();
-//        for(Role role : roles){
-//        if(role.getPrivileges().contains(privilege)){
-//        //如果当前用户拥有的权限包含方法注解上的权限,则执行被拦截到的方法
-//        return pjp.proceed();
-//        }
-//        }
-//        //如果没有权限,抛出异常,由Spring框架捕获,跳转到错误页面
-//        throw new PermissionException();
-//        }
-//        return pjp.proceed();
