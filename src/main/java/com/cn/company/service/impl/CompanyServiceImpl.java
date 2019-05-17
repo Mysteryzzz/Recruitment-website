@@ -6,12 +6,14 @@ import com.cn.company.service.ICompanyService;
 import com.cn.constant.Constants;
 import com.cn.util.QiniuUtil;
 import com.cn.util.Utils;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @description:
@@ -46,5 +48,16 @@ public class CompanyServiceImpl implements ICompanyService {
     @Override
     public Company selectCompanyInfo(Integer hrId) {
         return companyMapper.selectByHrId(hrId);
+    }
+
+    @Override
+    public List<Company> queryAllCompany(Integer page,Integer pageSize ,Company company) {
+        PageHelper.startPage(page,pageSize);
+        return companyMapper.queryAllCompany(company);
+    }
+
+    @Override
+    public Company selectById(Integer id) {
+        return companyMapper.selectByPrimaryKey(id);
     }
 }

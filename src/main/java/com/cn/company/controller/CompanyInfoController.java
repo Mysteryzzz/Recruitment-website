@@ -3,13 +3,11 @@ package com.cn.company.controller;
 import com.cn.company.domain.Company;
 import com.cn.company.service.ICompanyService;
 import com.cn.controller.BaseController;
+import com.cn.domain.ResponseData;
 import com.cn.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -42,5 +40,14 @@ public class CompanyInfoController  extends BaseController {
         //查询后的公司信息放入域中
         modelAndView.addObject("companyInfo",companyInfo);
         return modelAndView;
+    }
+
+
+    @RequestMapping("/queryAllCompany")
+    @ResponseBody
+    public ResponseData queryAllCompany(@RequestParam(value ="page",defaultValue = "1") Integer page, @RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize,@RequestParam(value = "companyName",required = false) String comapnyName){
+        Company company = new Company();
+        company.setCompanyAllName(comapnyName);
+        return new ResponseData(companyService.queryAllCompany(page,pageSize,company));
     }
 }

@@ -18,6 +18,7 @@
     <result column="last_updated_by" property="lastUpdatedBy" jdbcType="INTEGER" />
     <result column="required_message" property="requireMessage" jdbcType="VARCHAR"/>
     <result column="response_message" property="responseMessage" jdbcType="VARCHAR"/>
+    <result column="company_name" property="companyName" jdbcType="VARCHAR"/>
   </resultMap>
   <sql id="Base_Column_List" >
     id, position_name, salary, company_id, count, end_time, state, education_code, location_code, 
@@ -200,11 +201,13 @@
   </update>
 
   <select id="queryListBycompanyId" resultMap="BaseResultMap">
-    select p.id,p.position_name,p.company_id,p.count,p.end_time,p.location_code,p.experience_code,p.education_code,p.salary,p.state,po.message required_message,re.message response_message
-    from position p,posi_require po,responsibility re
+    select p.id,p.position_name,c.company_name,p.company_id,p.count,p.end_time,p.location_code,p.experience_code,p.education_code,p.salary,p.state,po.message required_message,re.message response_message
+    from position p,posi_require po,responsibility re,company c
     where p.id = po.position_id
     and p.id = re.position_id
+    and p.company_id = c.id
     and p.company_id =#{companyId,jdbcType=VARCHAR}
+    order by p.creation_date desc
   </select>
 
   <select id="selectByPositionId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -222,4 +225,25 @@
       #{item.id}
     </foreach>
   </delete>
+
+  <select id="queryAllList" resultMap="BaseResultMap">
+    select p.id,p.position_name,p.company_id,c.company_name,p.count,p.end_time,p.location_code,p.experience_code,p.education_code,p.salary,p.state,po.message required_message,re.message response_message
+    from position p,posi_require po,responsibility re,company c
+    where p.id = po.position_id
+    and p.id = re.position_id
+    and p.company_id = c.id
+    <if test="positionName != null" >
+      and  position_name LIKE concat('%', concat(#{positionName,jdbcType=VARCHAR}, '%'))
+    </if>
+    order by p.creation_date desc
+  </select>
+
+  <select id="selectPosition" resultMap="BaseResultMap">
+    select p.id,p.position_name,p.company_id,c.company_name,p.count,p.end_time,p.location_code,p.experience_code,p.education_code,p.salary,p.state,po.message required_message,re.message response_message
+    from position p,posi_require po,responsibility re,company c
+    where p.id = po.position_id
+      and p.id = re.position_id
+      and p.company_id = c.id
+      and p.id = #{id,jdbcType=INTEGER}
+  </select>
 </mapper>

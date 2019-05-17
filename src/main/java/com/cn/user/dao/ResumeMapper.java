@@ -14,4 +14,6 @@ public interface ResumeMapper {
     int updateByPrimaryKeySelective(Resume record);
 
     int updateByPrimaryKey(Resume record);
+
+    Resume selectByUserId(Integer userId);
 }

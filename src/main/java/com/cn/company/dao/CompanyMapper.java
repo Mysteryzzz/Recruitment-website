@@ -2,6 +2,8 @@ package com.cn.company.dao;
 
 import com.cn.company.domain.Company;
 
+import java.util.List;
+
 public interface CompanyMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -18,4 +20,6 @@ public interface CompanyMapper {
     Company selectByHrId(Integer hrId);
 
     int updateByHrIdKeySelective(Company company);
+
+    List<Company> queryAllCompany(Company company);
 }

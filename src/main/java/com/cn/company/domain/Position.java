@@ -14,6 +14,8 @@ public class Position {
 
     private Integer companyId;
 
+    private String companyName;
+
     private Integer count;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -167,5 +169,13 @@ public class Position {
 
     public void setResponseMessage(String responseMessage) {
         this.responseMessage = responseMessage;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }

@@ -1,69 +1,85 @@
 <#include "header.html"/>
 <body>
 <div style="margin-top: 100px;margin-left: 100px;width: 600px">
-    <#if myresume??>
-        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-            <legend>我的简历</legend>
-        </fieldset>
-    <form class="layui-form" action="${base.contextPath}/user/createMyResume" method="post" enctype = "multipart/form-data">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>我的简历</legend>
+    </fieldset>
+    <form class="layui-form" action="${base.contextPath}/user/updateMyResume" method="post" lay-filter="update">
+        <input name="id" id="id" hidden>
+        <input name="userId" hidden>
         <div class="layui-form-item">
             <label class="layui-form-label" style="width: 100px">姓名:</label>
             <div class="layui-input-block">
-                <input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input" value="" readonly>
+                <input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input" value="">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 100px">性别:</label>
-            <div class="layui-input-block">
-                <input type="checkbox" name="sex" lay-verify="required"autocomplete="off" class="layui-input" value="">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block" >
+                <input type="radio" name="sex" value="男" title="男" checked="">
+                <input type="radio" name="sex" value="女" title="女">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" style="width: 100px">民族:</label>
             <div class="layui-input-block">
-                <input type="text" name="nationCode" lay-verify="email" autocomplete="off" class="layui-input" value="">
+                <select  name="nationCode" lay-verify="required">
+                    <option value="">请选择民族</option>
+                    <option value="汉族">汉族</option>
+                    <option value="壮族">壮族</option>
+                    <option value="蒙古族">蒙古族</option>
+                </select>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" style="width: 100px">学历:</label>
             <div class="layui-input-block">
-                <input type="text" name="educationCode" lay-verify="phone"autocomplete="off" class="layui-input" value="">
+                <select  name="educationCode" lay-verify="required">
+                    <option value="">请选择学历</option>
+                    <option value="本科以下">本科以下</option>
+                    <option value="本科">本科</option>
+                    <option value="本科以上">本科以上</option>
+                    <option value="研究生">研究生</option>
+                    <option value="博士生">博士生</option>
+                    <option value="研究生及以上">研究生及以上</option>
+                    <option value="本科或研究生">本科或研究生</option>
+                </select>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" style="width: 100px">手机号:</label>
             <div class="layui-input-block">
-                <input type="tel" name="phone" lay-verify="phone"autocomplete="off" class="layui-input" value="">
+                <input type="tel" name="phone" lay-verify="phone" autocomplete="off" class="layui-input" value="">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" style="width: 100px">邮箱:</label>
             <div class="layui-input-block">
-                <input type="email" name="email" lay-verify="phone"autocomplete="off" class="layui-input" value="">
+                <input type="email" name="email" lay-verify="email"autocomplete="off" class="layui-input" value="">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" style="width: 100px">家庭住址:</label>
             <div class="layui-input-block">
-                <input type="text" name="location" lay-verify="phone"autocomplete="off" class="layui-input" value="">
+                <input type="text" name="location" lay-verify="required" autocomplete="off" class="layui-input" value="">
             </div>
         </div>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label" style="width: 100px" >技能:</label>
             <div class="layui-input-block">
-                <textarea placeholder="请输入技能" name="skills" class="layui-textarea"></textarea>
+                <textarea placeholder="请输入技能" name="skills" class="layui-textarea" lay-verify="required"></textarea>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" style="width: 100px">期望薪资:</label>
             <div class="layui-input-block">
-                <input type="number" name="expectSalary" lay-verify="phone"autocomplete="off" class="layui-input" value="">
+                <input type="number" name="expectSalary" lay-verify="required" autocomplete="off" class="layui-input" value="">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" style="width: 100px">求职意向:</label>
             <div class="layui-input-block">
-                <input type="text" name="expectPosition" lay-verify="phone"autocomplete="off" class="layui-input" value="">
+                <input type="text" name="expectPosition" lay-verify="required" autocomplete="off" class="layui-input" value="">
             </div>
         </div>
         <div class="layui-form-item">
@@ -74,98 +90,368 @@
             </div>
         </div>
     </form>
-    <div style="margin-left: 100px;">
+    <div>
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
             <legend>项目经历</legend>
-            <button>添加项目经历</button>
         </fieldset>
+        <#if projectList??>
+            <#list projectList as project>
+        <div>
+            <form class="layui-form">
+                <input name="id" hidden value="${project.id}">
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width: 100px">项目名称:</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="projectName" lay-verify="required" autocomplete="off" class="layui-input" value="${project.projectName}" readonly>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width: 100px">开始时间:</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="startTime" lay-verify="required" autocomplete="off" class="layui-input" value="${project.startTime?date}" readonly>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width: 100px">结束时间:</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="endTime" lay-verify="required" autocomplete="off" class="layui-input" value="${project.endTime?date}" readonly>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label" style="width: 100px" >负责内容:</label>
+                    <div class="layui-input-block">
+                        <textarea  name="message" class="layui-textarea" readonly>${project.message}</textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit="" lay-filter="projectEdit">
+                            编辑
+                        </button>
+                        <button class="layui-btn" lay-submit="" lay-filter="projectDelete">
+                            删除
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+            </#list>
+        </#if>
+        <div style="margin-left: 20px;cursor: pointer" onclick="openProjectModel()">
+            <i class="layui-icon layui-icon-add-1" style="font-size: 20px"></i>
+            <label>添加项目经历</label>
+        </div>
     </div>
-    <div style="margin-left: 100px;">
+    <div>
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
             <legend>工作经历</legend>
         </fieldset>
+        <#if workList??>
+        <#list workList as work>
+        <div>
+            <form class="layui-form">
+                <input name="id" hidden value="${work.id}">
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width: 100px">公司名称:</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="companyName" lay-verify="required" autocomplete="off" class="layui-input" value="${work.companyName}" readonly>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width: 100px">职位名称:</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="positionName" lay-verify="required" autocomplete="off" class="layui-input" value="${work.positionName}" readonly>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width: 100px">开始时间:</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="startTime" lay-verify="required" autocomplete="off" class="layui-input" value="${work.startTime?date}" readonly>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width: 100px">结束时间:</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="endTime" lay-verify="required" autocomplete="off" class="layui-input" value="${work.endTime?date}" readonly>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label" style="width: 100px" >负责内容:</label>
+                    <div class="layui-input-block">
+                        <textarea  name="message" class="layui-textarea" readonly>${work.message}</textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit="" lay-filter="workEdit">
+                            编辑
+                        </button>
+                        <button class="layui-btn" lay-submit="" lay-filter="workDelete">
+                            删除
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        </#list>
+        </#if>
+        <div style="margin-left: 20px;cursor: pointer" onclick="openWorkModel()" >
+            <i class="layui-icon layui-icon-add-1" style="font-size: 20px"></i>
+            <label>添加工作经历</label>
+        </div>
     </div>
-    <#else>
-        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-            <legend>创建简历</legend>
-        </fieldset>
-    <form class="layui-form" action="${base.contextPath}/user/createMyResume" method="post" enctype = "multipart/form-data">
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 100px">姓名:</label>
-            <div class="layui-input-block">
-                <input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input" value="" readonly>
+</div>
+
+<!--添加项目经历模态框-->
+<div class="modal fade" id="projectModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="projectModalLabel">项目经历</h4>
+            </div>
+            <div class="modal-body">
+                <form action="${base.contextPath}/user/addOrUpdateResumeProject" method="post"  class="layui-form" lay-filter="project">
+                    <input name="id" hidden>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">项目名称:</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="projectName" lay-verify="required" autocomplete="off" placeholder="请输入项目名称" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">开始时间:</label>
+                        <div class="layui-input-block">
+                            <input id="starttime1" type="text" name="startTime" lay-verify="required" placeholder="请选择开始时间" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">结束时间:</label>
+                        <div class="layui-input-block">
+                            <input id="endtime1" type="text" name="endTime" lay-verify="required" placeholder="请选择结束时间" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">项目职责:</label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="请输入在项目中负责的内容" name="message" class="layui-textarea" lay-verify="required"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="btn btn-primary" lay-submit lay-filter="update">保存</button>
+                            <button type="reset" class="btn btn-default" style="margin-left: 20px">重置</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 100px">性别:</label>
-            <div class="layui-input-block">
-                <input type="checkbox" name="sex" lay-verify="required"autocomplete="off" class="layui-input" value="">
+    </div>
+</div>
+<!--添加工作经历模态框-->
+<div class="modal fade" id="workModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">工作经历</h4>
+            </div>
+            <div class="modal-body">
+                <form action="${base.contextPath}/user/addOrUpdateResumeWork" method="post" class="layui-form" lay-filter="work">
+                    <input name="id" hidden>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">公司名称:</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="companyName" lay-verify="required" autocomplete="off" placeholder="请输入公司名称" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">职位名称:</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="positionName" lay-verify="required" placeholder="请输入职位名称" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">开始时间:</label>
+                        <div class="layui-input-block">
+                            <input id="starttime" type="text" name="startTime" lay-verify="required" placeholder="请选择开始时间" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">结束时间:</label>
+                        <div class="layui-input-block">
+                            <input id="endtime"  type="text" name="endTime" lay-verify="required" placeholder="请选择结束时间" autocomplete="off" class="layui-input endTime">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px">工作内容:</label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="请输入工作内容" name="message" class="layui-textarea" lay-verify="required"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="btn btn-primary" lay-submit lay-filter="update">保存</button>
+                            <button type="reset" class="btn btn-default" style="margin-left: 20px">重置</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 100px">民族:</label>
-            <div class="layui-input-block">
-                <input type="text" name="nationCode" lay-verify="email" autocomplete="off" class="layui-input" value="">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 100px">学历:</label>
-            <div class="layui-input-block">
-                <input type="text" name="educationCode" lay-verify="phone"autocomplete="off" class="layui-input" value="">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 100px">手机号:</label>
-            <div class="layui-input-block">
-                <input type="tel" name="phone" lay-verify="phone"autocomplete="off" class="layui-input" value="">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 100px">邮箱:</label>
-            <div class="layui-input-block">
-                <input type="email" name="email" lay-verify="phone"autocomplete="off" class="layui-input" value="">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 100px">家庭住址:</label>
-            <div class="layui-input-block">
-                <input type="text" name="location" lay-verify="phone"autocomplete="off" class="layui-input" value="">
-            </div>
-        </div>
-        <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label" style="width: 100px" >技能:</label>
-            <div class="layui-input-block">
-                <textarea placeholder="请输入技能" name="skills" class="layui-textarea"></textarea>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 100px">期望薪资:</label>
-            <div class="layui-input-block">
-                <input type="number" name="expectSalary" lay-verify="phone"autocomplete="off" class="layui-input" value="">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 100px">求职意向:</label>
-            <div class="layui-input-block">
-                <input type="text" name="expectPosition" lay-verify="phone"autocomplete="off" class="layui-input" value="">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button class="layui-btn" lay-submit="" lay-filter="create">
-                    保存
-                </button>
-            </div>
-        </div>
-    </form>
-    </#if>
+    </div>
 </div>
 <script>
-    layui.use('form', function(){
+    layui.use(['form','laydate'], function(){
         var form = layui.form;
+        form.render('select');
+        form.render('radio');
 
-        //各种基于事件的操作，下面会有进一步介绍
+        var laydate = layui.laydate;
+        laydate.render({
+            elem:'#starttime'
+        })
+        laydate.render({
+            elem:'#endtime'
+        })
+        laydate.render({
+            elem:'#starttime1'
+        })
+        laydate.render({
+            elem:'#endtime1'
+        })
+
+        //页面加载时渲染简历数据
+        $(function () {
+                $.ajax({
+                    type:'POST',
+                    url:'${base.contextPath}/user/selectResume',
+                    success:function (res) {
+                        var data = res.data;
+                        if(!res.success)
+                        {
+                            layer.alert(res.msg);
+                        }
+                        else{
+                            form.val('update', {
+                                "id": data[0].id
+                                ,"name": data[0].name
+                                ,"sex": data[0].sex
+                                ,"nationCode": data[0].nationCode
+                                ,"educationCode":data[0].educationCode
+                                ,"phone": data[0].phone
+                                ,"email": data[0].email
+                                ,"location": data[0].location
+                                ,"skills": data[0].skills
+                                ,"expectSalary": data[0].expectSalary
+                                ,"userId": data[0].userId
+                                ,"expectPosition": data[0].expectPosition
+                            })
+                        }
+                    }
+
+                })
+
+        })
+
+        //监听项目经历编辑事件
+        form.on('submit(projectEdit)', function(obj){
+            var data = obj.field;
+            console.log(data);
+            form.val('project', {
+                "id": data.id
+                ,"projectName": data.projectName
+                ,"startTime": data.startTime
+                ,"endTime": data.endTime
+                ,"message": data.message
+            })
+            $("#projectModel").modal({
+                backdrop:"static"
+            });
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+
+        //监听项目经历删除事件
+        form.on('submit(projectDelete)', function(obj){
+            var data = obj.field;
+            console.log(data);
+            layer.confirm('确定删除？', function(index){
+                layer.close(index);
+                $.ajax({
+                    type:'POST',
+                    url:'${base.contextPath}/user/deleteProjectById',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success:function (res) {
+                        if(res.success)
+                        {
+                            window.location.href="${base.contextPath}/UserIframe/myResume";
+                        }
+                        else{
+                            layer.alert(res.msg);
+                        }
+                    }
+
+                })
+            })
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+
+        //监听工作经历编辑事件
+        form.on('submit(workEdit)', function(obj){
+            var data = obj.field;
+            form.val('work', {
+                "id": data.id
+                ,"companyName": data.companyName
+                ,"positionName": data.positionName
+                ,"startTime": data.startTime
+                ,"endTime": data.endTime
+                ,"message": data.message
+            })
+            $("#workModel").modal({
+                backdrop:"static"
+            });
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+
+        //监听工作经历删除事件
+        form.on('submit(workDelete)', function(obj){
+            var data = obj.field;
+            layer.confirm('确定删除？', function(index){
+                layer.close(index);
+                $.ajax({
+                    type:'POST',
+                    url:'${base.contextPath}/user/deleteWorkById',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success:function (res) {
+                        if(res.success)
+                        {
+                            window.location.href="${base.contextPath}/UserIframe/myResume";
+                        }
+                        else{
+                            layer.alert(res.msg);
+                        }
+                    }
+
+                })
+            })
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
     });
+
+    function openProjectModel() {
+        $("button[type=reset]").trigger("click");
+        $("#projectModel").modal({
+            backdrop:"static"
+        });
+    }
+
+    function openWorkModel() {
+        $("button[type=reset]").trigger("click");
+        $("#workModel").modal({
+            backdrop:"static"
+        });
+    }
 </script>
 </body>
 </html>

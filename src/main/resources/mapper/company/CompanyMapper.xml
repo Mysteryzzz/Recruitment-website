@@ -263,4 +263,16 @@
     </set>
     where hr_Id = #{hrId,jdbcType=INTEGER}
   </update>
+
+  <select id="queryAllCompany" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from company
+    <where>
+      <if test="companyAllName != null">
+        company_all_name like concat('%', concat(#{companyAllName,jdbcType=VARCHAR}, '%'))
+      </if>
+    </where>
+    order by creation_date desc
+  </select>
 </mapper>

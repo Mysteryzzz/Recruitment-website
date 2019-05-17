@@ -27,7 +27,7 @@ public class CompanyLoginController {
     @Autowired
     ICompanyLoginService companyLoginService;
 
-    @RequestMapping(value = "/companyLogin",method = RequestMethod.GET)
+    @RequestMapping(value = "/companyLogin",method = RequestMethod.POST)
     @ResponseBody
     public ResponseData companyLogin(HttpServletRequest request, @RequestParam String account, @RequestParam String password)
     {

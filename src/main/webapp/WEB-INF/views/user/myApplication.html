@@ -1,5 +1,136 @@
 <#include "header.html"/>
 <body>
-我的申请
+<table id="demo" lay-filter="test" ></table>
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-danger" lay-event="delete">删除</button>
+    </div>
+</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
 </body>
+<script>
+    layui.use(['table','form','laydate'],function () {
+        var table = layui.table;
+
+        var  form = layui.form;
+        form.render('select');
+
+        var laydate = layui.laydate;
+        laydate.render({
+            elem:'#endTime'
+        })
+
+        laydate.render({
+            elem:'#endtime1'
+        })
+
+        //数据表格渲染
+        table.render({
+            elem: '#demo',
+            height: 500,
+            url: '${base.contextPath}/user/queryListApplication',
+            page: true,
+            toolbar:'#toolbarDemo',
+            defaultToolbar: ['filter', 'print', 'exports'],
+            request: {
+                pageName: 'page' //页码的参数名称，默认：page
+                ,limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            }
+            ,even: true //开启隔行背景
+            ,title:'我的申请',
+            cols: [[
+                {type:'checkbox',fixed:'left'}
+                ,{field: 'id', title: 'ID', width:80, sort: true, fixed: 'left',hide:true}
+                ,{field: 'companyName', title: '公司名称',align:'center'}
+                ,{field: 'positionName', title: '岗位名称', sort: true,align:'center'}
+                ,{field: 'creationDate', title: '申请时间',align:'center'}
+                ,{field: 'status', title: '状态',align:'center'}
+                ,{ title: '操作' ,align:'center',toolbar: '#barDemo'}
+            ]]
+        });
+
+        table.on('toolbar(test)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'add':
+                    //清空表单数据
+                    $("button[type=reset]").trigger("click");
+                    $("#positionAddModel").modal({
+                        backdrop:"static"
+                    });
+                    break;
+                //批量删除
+                case 'delete':
+                    var data = checkStatus.data;
+                    console.log(data);
+                    if(data.length>0)
+                    {
+                        layer.confirm('确定删除？', function(index){
+                            $.ajax({
+                                type:'POST',
+                                url:'${base.contextPath}/user/batchDeleteMyApplication',
+                                contentType: 'application/json',
+                                data: JSON.stringify(data),
+                                success:function (res) {
+                                    if(!res.success) {
+                                        layer.alert("删除失败");
+                                    }
+                                    else{
+                                        layer.confirm('删除成功', function(index){
+                                            layer.close(index);
+                                            table.reload('demo',{
+                                                page: {
+                                                    page: 1
+                                                }
+                                            });
+                                        });
+                                    }
+                                }
+
+                            })
+                        })
+
+                    }
+                    else
+                    {
+                        layer.alert("请至少选中一行数据");
+                    }
+                    break;
+            };
+        });
+
+        //监听行工具事件
+        table.on('tool(test)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'del') {
+                layer.confirm('真的删除这一行吗么', function (index) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '${base.contextPath}/user/deleteMyApplication',
+                        data: {'id': data.id},
+                        success: function (res) {
+                            if (!res.success) {
+                                layer.alert("删除失败");
+                            } else {
+                                layer.confirm('删除成功', function (index) {
+                                    layer.close(index);
+                                    table.reload('demo', {
+                                        where: { //设定异步数据接口的额外参数，任意设
+                                        }
+                                        , page: {
+                                            page: 1
+                                        }
+                                    });
+                                });
+                            }
+                        }
+
+                    })
+                });
+            }
+        });
+    });
+</script>
 </html>

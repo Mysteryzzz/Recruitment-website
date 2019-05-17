@@ -78,11 +78,9 @@
         var account = $("#account").val();
         var  password = $("#password").val();
         $.ajax({
-            type:'GET',
+            type:'POST',
             url:'${base.contextPath}/company/companyLogin',
-            data:'account='+account+'&password='+password,
-            dataType : "json",
-            contentType : "application/json",
+            data:{'account' : account, 'password' : password},
             success:function (res) {
                 if(!res.success)
                 {

@@ -36,5 +36,20 @@ public class UserLoginController {
         return new ResponseData(true);
     }
 
+    @RequestMapping("/userLogout")
+    public ModelAndView userLogout(HttpServletRequest request){
+        request.getSession().invalidate();
+        return new ModelAndView("/index");
+    }
 
+    @RequestMapping("/isLogin")
+    @ResponseBody
+    public ResponseData isLogin(HttpServletRequest request){
+        User user = (User)request.getSession().getAttribute("user");
+        if(user!=null){
+            return new ResponseData();
+        }else {
+            return new ResponseData(false);
+        }
+    }
 }

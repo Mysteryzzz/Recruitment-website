@@ -8,4 +8,6 @@ package com.cn.constant;
  */
 public class Constants {
     public static final String FILE_PATH = "D:/upload/";
+    public static final String PASS = "不通过";
+    public static final String INVITE = "已通过";
 }

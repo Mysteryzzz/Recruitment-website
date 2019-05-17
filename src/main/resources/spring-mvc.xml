@@ -84,6 +84,4 @@
     </aop:aspectj-autoproxy>
     <bean id="controllerAspect" class="com.cn.config.AuthenticationInterceptor"></bean>
 
-
-
 </beans>

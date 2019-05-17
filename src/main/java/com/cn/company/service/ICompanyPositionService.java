@@ -23,4 +23,12 @@ public interface ICompanyPositionService {
     List<Position> selectByPositionId(Integer id);
 
     void batchDelete(List<Position> list);
+
+    List<Position> queryAllPosition(Integer page,Integer pageSize,Position position);
+
+    Position selectPosition(Integer id);
+
+    List<Position> queryPositionByCompanyId(Integer page,Integer pageSize,Integer companyId);
+
+    List<Position>  queryNewPosition(Integer page,Integer pageSize);
 }

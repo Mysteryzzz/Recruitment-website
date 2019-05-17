@@ -1,10 +1,212 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>公司管理</title>
-</head>
+<#include "header.html"/>
 <body>
-公司管理
+<table id="demo" lay-filter="test" ></table>
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-danger" lay-event="delete">删除</button>
+    </div>
+</script>
+<script type="text/html" id="barDemo">
+    <button class="layui-btn layui-btn-xs" lay-event="look">查看信息</button>
+    <button class="layui-btn layui-btn-xs" lay-event="invite">冻结</button>
+    <button class="layui-btn layui-btn-xs" lay-event="pass">标记不通过</button>
+    <button class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</button>
+</script>
 </body>
+<script>
+    layui.use(['table','form','laydate'],function () {
+        var table = layui.table;
+
+        var  form = layui.form;
+        form.render('select');
+
+        var laydate = layui.laydate;
+
+        //数据表格渲染
+        table.render({
+            elem: '#demo',
+            height: 500,
+            url: '${base.contextPath}/company/queryCompanyApplication',
+            page: true,
+            toolbar:'#toolbarDemo',
+            defaultToolbar: ['filter', 'print', 'exports'],
+            request: {
+                pageName: 'page' //页码的参数名称，默认：page
+                ,limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            }
+            ,even: true //开启隔行背景
+            ,title:'招聘岗位列表',
+            cols: [[
+                {type:'checkbox',fixed:'left'}
+                ,{field: 'id', title: 'ID', sort: true, fixed: 'left',hide:true}
+                ,{field: 'userId', title: 'ID',hide:true}
+                ,{field: 'companyName', title: 'ID',hide:true}
+                ,{field: 'userName', title: '姓名',align:'center'}
+                ,{field: 'positionName', title: '职位名称', sort: true,align:'center'}
+                ,{field: 'creationDate', title: '申请时间',align:'center'}
+                ,{field: 'status', title: '状态' ,align:'center'}
+                ,{ title: '操作' ,align:'center',toolbar: '#barDemo',width:350}
+            ]]
+        });
+
+        //监听头工具栏事件
+        table.on('toolbar(test)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'add':
+                    break;
+                //批量删除
+                case 'delete':
+                    var data = checkStatus.data;
+                    console.log(data);
+                    if(data.length>0)
+                    {
+                        layer.confirm('确定删除？', function(index){
+                            $.ajax({
+                                type:'POST',
+                                url:'${base.contextPath}/company/batchDeleteCompanyApp',
+                                contentType: 'application/json',
+                                data: JSON.stringify(data),
+                                success:function (res) {
+                                    if(!res.success) {
+                                        layer.alert("删除失败");
+                                    }
+                                    else{
+                                        layer.confirm('删除成功', function(index){
+                                            layer.close(index);
+                                            table.reload('demo',{
+                                                page: {
+                                                    page: 1
+                                                }
+                                            });
+                                        });
+                                    }
+                                }
+
+                            })
+                        })
+
+                    }
+                    else
+                    {
+                        layer.alert("请至少选中一行数据");
+                    }
+                    break;
+            };
+        });
+
+        //监听行工具事件
+        table.on('tool(test)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'del'){
+                layer.confirm('真的删除这一行吗么', function(index){
+                    $.ajax({
+                        type:'POST',
+                        url:'${base.contextPath}/company/deleteCompanyAppById',
+                        data: {'id' : data.id},
+                        async:false,
+                        success:function (res) {
+                            if(!res.success)
+                            {
+                                layer.alert("删除失败");
+                            }
+                            else{
+                                layer.confirm('删除成功', function(index){
+                                    layer.close(index);
+                                    table.reload('demo',{
+                                        where: { //设定异步数据接口的额外参数，任意设
+                                        }
+                                        ,page: {
+                                            page: 1
+                                        }
+                                    });
+                                });
+                            }
+                        }
+
+                    })
+                });
+
+            } else if(obj.event === 'pass'){
+                //不通过
+                data.status = '不通过';
+                layer.confirm('是否标记不通过？', function(index){
+                    $.ajax({
+                        type:'POST',
+                        url:'${base.contextPath}/company/updateApplicationState',
+                        contentType: 'application/json',
+                        data: JSON.stringify(data),
+                        success:function (res) {
+                            console.log(res);
+                            var data = res.data;
+                            if(!res.success)
+                            {
+                                layer.alert(res.msg);
+                            }
+                            else{
+                                layer.confirm('标记成功', function(index){
+                                    layer.close(index);
+                                    table.reload('demo',{
+                                        where: { //设定异步数据接口的额外参数，任意设
+                                        }
+                                        ,page: {
+                                            page: 1
+                                        }
+                                    });
+                                });
+                            }
+                        }
+
+                    })
+                });
+
+            }
+            else if(obj.event === 'look'){
+                //查看简历
+                layer.open({
+                    title:'查看简历',
+                    type: 2,
+                    content: '${base.contextPath}/companyIframe/resume?userId='+data.userId ,
+                    area: ['800px','500px'],
+                    offset:'50px',
+                    anim: 2
+                });
+            }
+            else if(obj.event === 'invite'){
+                //面试邀请
+                data.status = '已通过'
+                layer.confirm('是否发送面试邀请？', function(index){
+                    $.ajax({
+                        type:'POST',
+                        url:'${base.contextPath}/company/updateApplicationState',
+                        contentType: 'application/json',
+                        data: JSON.stringify(data),
+                        success:function (res) {
+                            console.log(res);
+                            var data = res.data;
+                            if(!res.success)
+                            {
+                                layer.alert(res.msg);
+                            }
+                            else{
+                                layer.confirm('邀请成功', function(index){
+                                    layer.close(index);
+                                    table.reload('demo',{
+                                        where: { //设定异步数据接口的额外参数，任意设
+                                        }
+                                        ,page: {
+                                            page: 1
+                                        }
+                                    });
+                                });
+                            }
+                        }
+
+                    })
+                });
+            }
+        });
+    });
+
+</script>
 </html>

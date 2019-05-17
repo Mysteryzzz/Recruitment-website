@@ -36,6 +36,14 @@ public class CompanyPositionController extends BaseController {
         return new ResponseData(positionService.queryPositionList(page,pageSize,user));
     }
 
+    @RequestMapping("/queryAllPosition")
+    @ResponseBody
+    public ResponseData queryAllPosition(@RequestParam(value ="page",defaultValue = "1") Integer page,@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize,@RequestParam(value = "name",required = false) String name){
+        Position position = new Position();
+        position.setPositionName(name);
+        return new ResponseData(positionService.queryAllPosition(page,pageSize,position));
+    }
+
     @ResponseBody
     @RequestMapping(value = "/insertPosition")
     public ResponseData insertOrUpdatePosition(HttpServletRequest request, Position position)
@@ -66,5 +74,11 @@ public class CompanyPositionController extends BaseController {
     {
         positionService.batchDelete(list);
         return  new ResponseData();
+    }
+
+    @RequestMapping("/queryPositionByCompanyId")
+    @ResponseBody
+    public ResponseData queryPositionByCompanyId( @RequestParam(value ="page",defaultValue = "1") Integer page,@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize,@RequestParam("id") Integer id){
+        return new ResponseData(positionService.queryPositionByCompanyId(page,pageSize,id));
     }
 }

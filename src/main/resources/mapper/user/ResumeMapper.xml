@@ -7,7 +7,7 @@
     <result column="sex" property="sex" jdbcType="CHAR" />
     <result column="nation_code" property="nationCode" jdbcType="VARCHAR" />
     <result column="education_code" property="educationCode" jdbcType="VARCHAR" />
-    <result column="phone" property="phone" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="location" property="location" jdbcType="VARCHAR" />
     <result column="skills" property="skills" jdbcType="VARCHAR" />
@@ -41,7 +41,7 @@
       last_update_date, user_id, expect_position
       )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, #{nationCode,jdbcType=VARCHAR}, 
-      #{educationCode,jdbcType=VARCHAR}, #{phone,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, 
+      #{educationCode,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
       #{location,jdbcType=VARCHAR}, #{skills,jdbcType=VARCHAR}, #{expectSalary,jdbcType=DOUBLE}, 
       #{createdBy,jdbcType=INTEGER}, #{creationDate,jdbcType=TIMESTAMP}, #{lastUpdatedBy,jdbcType=INTEGER}, 
       #{lastUpdateDate,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER}, #{expectPosition,jdbcType=VARCHAR}
@@ -116,7 +116,7 @@
         #{educationCode,jdbcType=VARCHAR},
       </if>
       <if test="phone != null" >
-        #{phone,jdbcType=INTEGER},
+        #{phone,jdbcType=VARCHAR},
       </if>
       <if test="email != null" >
         #{email,jdbcType=VARCHAR},
@@ -166,7 +166,7 @@
         education_code = #{educationCode,jdbcType=VARCHAR},
       </if>
       <if test="phone != null" >
-        phone = #{phone,jdbcType=INTEGER},
+        phone = #{phone,jdbcType=VARCHAR},
       </if>
       <if test="email != null" >
         email = #{email,jdbcType=VARCHAR},
@@ -207,7 +207,7 @@
       sex = #{sex,jdbcType=CHAR},
       nation_code = #{nationCode,jdbcType=VARCHAR},
       education_code = #{educationCode,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       location = #{location,jdbcType=VARCHAR},
       skills = #{skills,jdbcType=VARCHAR},
@@ -220,4 +220,11 @@
       expect_position = #{expectPosition,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByUserId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from resume
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
 </mapper>

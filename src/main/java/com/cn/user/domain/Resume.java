@@ -1,8 +1,10 @@
 package com.cn.user.domain;
 
+import com.cn.domain.BaseDTO;
+
 import java.util.Date;
 
-public class Resume {
+public class Resume extends BaseDTO {
     private Integer id;
 
     private String name;
@@ -13,7 +15,7 @@ public class Resume {
 
     private String educationCode;
 
-    private Integer phone;
+    private String phone;
 
     private String email;
 
@@ -22,14 +24,6 @@ public class Resume {
     private String skills;
 
     private Double expectSalary;
-
-    private Integer createdBy;
-
-    private Date creationDate;
-
-    private Integer lastUpdatedBy;
-
-    private Date lastUpdateDate;
 
     private Integer userId;
 
@@ -75,11 +69,11 @@ public class Resume {
         this.educationCode = educationCode == null ? null : educationCode.trim();
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -113,38 +107,6 @@ public class Resume {
 
     public void setExpectSalary(Double expectSalary) {
         this.expectSalary = expectSalary;
-    }
-
-    public Integer getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(Integer createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public Integer getLastUpdatedBy() {
-        return lastUpdatedBy;
-    }
-
-    public void setLastUpdatedBy(Integer lastUpdatedBy) {
-        this.lastUpdatedBy = lastUpdatedBy;
-    }
-
-    public Date getLastUpdateDate() {
-        return lastUpdateDate;
-    }
-
-    public void setLastUpdateDate(Date lastUpdateDate) {
-        this.lastUpdateDate = lastUpdateDate;
     }
 
     public Integer getUserId() {

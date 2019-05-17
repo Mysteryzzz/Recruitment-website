@@ -94,4 +94,27 @@ public class CompanyPositionImpl implements ICompanyPositionService {
             positionMapper.batchDelete(list);
         }
     }
+
+    @Override
+    public List<Position> queryAllPosition(Integer page,Integer pageSize,Position position) {
+        PageHelper.startPage(page,pageSize);
+        return positionMapper.queryAllList(position);
+    }
+
+    @Override
+    public Position selectPosition(Integer id) {
+        return positionMapper.selectPosition(id);
+    }
+
+    @Override
+    public List<Position> queryPositionByCompanyId(Integer page, Integer pageSize, Integer companyId) {
+        PageHelper.startPage(page,pageSize);
+        return positionMapper.queryListBycompanyId(companyId);
+    }
+
+    @Override
+    public List<Position> queryNewPosition(Integer page, Integer pageSize) {
+        PageHelper.startPage(page,pageSize);
+        return positionMapper.queryAllList(null);
+    }
 }

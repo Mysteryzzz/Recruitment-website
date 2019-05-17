@@ -1,45 +1,112 @@
 <#include "header.html"/>
 <body>
-    <div>
-        <div style="height: 50px;background-color: #303640">
-            <a href="${base.contextPath}/index.html">
-                <img src="${base.contextPath}/lib/image/logo.png"  height="40px" width="45px" style="margin-top:6px ;float: left;margin-left: 180px;">
-            </a>
-            <div style="font-size: 30px;margin-top:8px ;float: left;">
-                <a href="${base.contextPath}/index.html" style="color: #ffffff;text-decoration: none">英聘</a>
+<div>
+    <div style="height: 50px;background-color: #303640">
+        <a href="${base.contextPath}/index.html">
+            <img src="${base.contextPath}/lib/image/logo.png"  height="40px" width="45px" style="margin-top:6px ;float: left;margin-left: 180px;">
+        </a>
+        <div style="font-size: 30px;margin-top:8px ;float: left;">
+            <a href="${base.contextPath}/index.html" style="color: #ffffff;text-decoration: none">英聘</a>
+        </div>
+        <div style="float: left;font-size: 17px;line-height: 60px">
+            <ul>
+                <li style="float: left;margin-left: 100px;width: 70px;height: 50px">
+                    <a href="${base.contextPath}/index.html" style="color: #ffffff;margin-left: 17px;text-decoration: none">首页</a>
+                </li>
+                <li style="float: left;width: 70px;height: 50px;">
+                    <a href="${base.contextPath}/indexIframe/positionList" style="color: #ffffff;margin-left: 17px;text-decoration: none;">职位</a>
+                </li>
+                <li style="float: left;width: 70px;height: 50px;background-color: #3689b3" >
+                    <a href="${base.contextPath}/indexIframe/companyList" style="color: #ffffff;margin-left: 17px;text-decoration: none">公司</a>
+                </li>
+            </ul>
+        </div>
+        <div style="float: right; margin-right: 100px;margin-top: 20px;color: #ffffff">
+            <#if user??>
+            <div style="float: left;margin-right: 20px">
+                <label>欢迎，${user.account}</label>
+                <a href="${base.contextPath}/UserIframe/userInfos" style="color: #ffffff;text-decoration: none">个人中心</a>
+                <a href="${base.contextPath}/user/userLogout" style="margin-left: 10px">注销</a>
             </div>
-            <div style="float: left;font-size: 17px;line-height: 60px">
-                <ul>
-                    <li style="float: left;margin-left: 100px;width: 70px;height: 50px">
-                        <a href="${base.contextPath}/index.html" style="color: #ffffff;margin-left: 17px;text-decoration: none">首页</a>
-                    </li>
-                    <li style="float: left;width: 70px;height: 50px">
-                        <a href="${base.contextPath}/indexIframe/positionList" style="color: #ffffff;margin-left: 17px;text-decoration: none;">职位</a>
-                    </li>
-                    <li style="float: left;width: 70px;height: 50px;background-color: #3689b3">
-                        <a href="${base.contextPath}/indexIframe/companyList" style="color: #ffffff;margin-left: 17px;text-decoration: none;">公司</a>
-                    </li>
-                </ul>
+            <#else>
+            <div style="float: left;margin-right: 20px">
+                <a href="${base.contextPath}/user/login.html" style="color: #ffffff;text-decoration: none">请登录</a>
             </div>
-            <div style="float: right; margin-right: 100px;margin-top: 20px;color: #ffffff">
-                <#if user??>
-                <div style="float: left;margin-right: 20px">
-                    <label>欢迎，${user.account}</label>
-                    <a href="${base.contextPath}/UserIframe/userInfos" style="color: #ffffff;text-decoration: none">个人中心</a>
-                </div>
-                <#else>
-                <div style="float: left;margin-right: 20px">
-                    <a href="${base.contextPath}/user/login.html" style="color: #ffffff;text-decoration: none">请登录</a>
-                </div>
-            </#if>
-                <div style="float: left;margin-right: 20px">
-                    |
-                </div>
-                <div style="float: left">
-                    <a href="${base.contextPath}/company/login.html" style="color: #ffffff;text-decoration: none">企业版登录</a>
-                </div>
-            </div>
+        </#if>
+        <div style="float: left;margin-right: 20px">
+            |
+        </div>
+        <div style="float: left">
+            <a href="${base.contextPath}/company/login.html" style="color: #ffffff;text-decoration: none">企业版登录</a>
         </div>
     </div>
+</div>
+</div>
+<div class="form-group" style="width: 600px;margin: 0 auto;margin-top: 20px">
+    <input class="form-control input-lg" id="search" type="text" value="" placeholder="请输入公司名称" style="border-width:2px;border-radius:0px;float: left;width: 500px">
+    <button type="button" class="btn btn-default btn-lg" onclick="search()" style="float: left;background-color:#69ace9;border-radius:0px">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+        <a  style="text-decoration: none;color: #ffffff" >搜索</a>
+    </button>
+    <br><br><br>
+</div>
+<div style="width: 900px;margin: 0 auto">
+    <table id="demo" lay-filter="test" ></table>
+</div>
 </body>
+<script>
+    var table;
+    layui.use(['table','form','laydate'],function ()  {
+        table = layui.table;
+
+        var  form = layui.form;
+        form.render('select');
+
+        var laydate = layui.laydate;
+
+
+
+        //数据表格渲染
+        table.render({
+            elem: '#demo',
+            height: 500,
+            url: '${base.contextPath}/company/queryAllCompany',
+            page: true,
+            request: {
+                pageName: 'page' //页码的参数名称，默认：page
+                ,limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            }
+            ,title:'所有公司列表',
+            cols: [[
+                {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left',hide:true}
+                ,{field: 'companyAllName', title: '公司全称',align:'center', event: 'goCompany', style:'cursor: pointer;'}
+                ,{field: 'companyName', title: '公司简称',align:'center'}
+                ,{field: 'companyLocation', title: '公司地点',align:'center'}
+            ]]
+        });
+
+
+        //监听单元格事件
+        table.on('tool(test)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'goCompany'){
+                window.location.href="${base.contextPath}/indexIframe/companyInfo?id="+data.id;
+            }
+        });
+
+    });
+
+    function search() {
+        var name = $("#search").val();
+        console.log(name);
+        table.reload('demo',{
+            where: { //设定异步数据接口的额外参数，任意设
+                name:name
+            }
+            ,page: {
+                page: 1
+            }
+        });
+    }
+</script>
 </html>

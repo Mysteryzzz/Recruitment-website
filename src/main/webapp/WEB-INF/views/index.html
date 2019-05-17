@@ -1,4 +1,10 @@
 <#include "header.html"/>
+<style>
+    .new_position:hover{
+        border: 1px solid blue;
+        cursor: pointer;
+    }
+</style>
 <body>
     <div>
         <div style="height: 50px;background-color: #303640">
@@ -26,6 +32,7 @@
                     <div style="float: left;margin-right: 20px">
                         <label>欢迎，${user.account}</label>
                         <a href="${base.contextPath}/UserIframe/userInfos" style="color: #ffffff;text-decoration: none">个人中心</a>
+                        <a href="${base.contextPath}/user/userLogout" style="margin-left: 10px">注销</a>
                     </div>
                 <#else>
                     <div style="float: left;margin-right: 20px">
@@ -49,13 +56,26 @@
                     <div style="font-size: 20px;margin-top: 10px">
                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>职位搜索
                     </div>
-                    <div class="form-group" style="width: 600px;margin-top: 50px;margin-left: 50px">
-                        <input class="form-control input-lg" type="text" style="border-width:2px;border-radius:0px;float: left;width: 500px">
-                        <button type="button" class="btn btn-default btn-lg" style="float: left;background-color:#69ace9;border-radius:0px">
-                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                        <a href="${base.contextPath}/indexIframe/positionList" style="text-decoration: none;color: #ffffff">搜索</a>
-                        </button>
-                        热门搜索：投资经理 土建工程师 采购销售 运营 java 产品经理 人力资源 总经理
+                    <div class="form-group" style="width: 600px;margin-top: 50px;margin-left: 50px" >
+                        <input class="form-control input-lg" type="text" id="search" style="border-width:2px;border-radius:0px;float: left;width: 500px">
+                        <div onclick="search()">
+                            <a style="text-decoration: none;color: #ffffff">
+                                <button type="button" class="btn btn-default btn-lg" style="float: left;background-color:#69ace9;border-radius:0px">
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>搜索
+                                </button>
+                            </a>
+                        </div>
+                        <div>
+                            热门搜索
+                            <a onclick="hotPosition(this)">投资经理</a>
+                            <a onclick="hotPosition(this)">土建工程师</a>
+                            <a onclick="hotPosition(this)">采购销售</a>
+                            <a onclick="hotPosition(this)">运营</a>
+                            <a onclick="hotPosition(this)">java</a>
+                            <a onclick="hotPosition(this)">产品经理</a>
+                            <a onclick="hotPosition(this)">人力资源</a>
+                            <a onclick="hotPosition(this)">总经理</a>
+                        </div>
                     </div>
                 </div>
                 <div style="height:200px;width: 30%;float: left">
@@ -65,13 +85,60 @@
                 </div>
             </div>
 
-            <div style="height: 500px;background-color: rosybrown">
 
+            <div id="hotPosition" style="height: 650px;background-color: #f1f4f1">
+                <div style="font-size: 20px;margin-top: 10px">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>最新职位
+                </div>
+                <div id="new_Position">
+                </div>
             </div>
             <div style="height: 30px;background-color: #ffffff">
-
             </div>
         </div>
     </div>
 </body>
+
+<script>
+    function search() {
+        var name = $("#search").val();
+        window.location.href="${base.contextPath}/indexIframe/positionList?name="+name;
+    }
+
+    function hotPosition(obj){
+        var name = $(obj).text();
+        window.location.href="${base.contextPath}/indexIframe/positionList?name="+name;
+    }
+    
+    $(function () {
+        $.ajax({
+            type:'GET',
+            url:'${base.contextPath}/indexIframe/queryNewPosition',
+            success:function (res) {
+               var data = res.data;
+               console.log(data);
+               var new_position = $("#new_Position");
+               $.each(data,function (i,v) {
+                   var div='<div onclick="newPosition(this)" class="new_position row" style="background-color: #ffffff;margin-top:20px;margin-left:50px;margin-right:50px;height: 100px;line-height: 100px;font-size: 15px;">\n' +
+                       '                    <span hidden name="id">'+v.id+'</span>\n' +
+                       '                    <span class="col-md-3" style="">'+v.positionName+'</span>\n' +
+                       '                    <span class="col-md-4" style="">'+v.experienceCode+'|'+v.educationCode+'</span>\n' +
+                       '                    <span class="col-md-1" style="color: red;">'+v.salary+'</span>\n' +
+                       '                    <span class="col-md-1" style="">'+v.count+'人</span>\n' +
+                       '                    <span class="col-md-2" style="">'+v.companyName+'</span>\n' +
+                       '                    <span class="col-md-1" style="">'+v.locationCode+'</span>\n' +
+                       '                </div>'
+                   new_position.append(div);
+               })
+            }
+
+        })
+    })
+    
+    function newPosition(obj) {
+        var span = $(obj).children()[0];
+        var id = $(span).text();
+        window.location.href="${base.contextPath}/indexIframe/positionInfo?id="+id;
+    }
+</script>
 </html>
