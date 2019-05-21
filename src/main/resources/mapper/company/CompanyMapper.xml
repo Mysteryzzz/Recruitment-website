@@ -17,6 +17,7 @@
     <result column="id_card" property="idCard" jdbcType="VARCHAR" />
     <result column="company_location_info" property="companyLocationInfo" jdbcType="VARCHAR" />
     <result column="hr_id" property="hrId" jdbcType="INTEGER" />
+    <result column="enable" property="enable" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, company_all_name, company_intr, company_location, product_intr, creation_date, 
@@ -275,4 +276,5 @@
     </where>
     order by creation_date desc
   </select>
+
 </mapper>

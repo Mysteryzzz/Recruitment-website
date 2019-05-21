@@ -1,10 +1,12 @@
 package com.cn.company.domain;
 
+import com.cn.domain.BaseDTO;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
 
-public class Company {
+public class Company extends BaseDTO {
     @Id
     @GeneratedValue
     private Integer id;
@@ -17,14 +19,6 @@ public class Company {
 
     private String productIntr;
 
-    private Date creationDate;
-
-    private Integer createdBy;
-
-    private Date lastUpdateDate;
-
-    private Integer lastUpdatedBy;
-
     private String companyName;
 
     private String companyLogo;
@@ -36,6 +30,8 @@ public class Company {
     private String companyLocationInfo;
 
     private Integer hrId;
+
+    private String enable;
 
     public Integer getId() {
         return id;
@@ -75,38 +71,6 @@ public class Company {
 
     public void setProductIntr(String productIntr) {
         this.productIntr = productIntr == null ? null : productIntr.trim();
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public Integer getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(Integer createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Date getLastUpdateDate() {
-        return lastUpdateDate;
-    }
-
-    public void setLastUpdateDate(Date lastUpdateDate) {
-        this.lastUpdateDate = lastUpdateDate;
-    }
-
-    public Integer getLastUpdatedBy() {
-        return lastUpdatedBy;
-    }
-
-    public void setLastUpdatedBy(Integer lastUpdatedBy) {
-        this.lastUpdatedBy = lastUpdatedBy;
     }
 
     public String getCompanyName() {
@@ -155,5 +119,13 @@ public class Company {
 
     public void setHrId(Integer hrId) {
         this.hrId = hrId;
+    }
+
+    public String getEnable() {
+        return enable;
+    }
+
+    public void setEnable(String enable) {
+        this.enable = enable;
     }
 }

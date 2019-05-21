@@ -22,4 +22,5 @@ public interface CompanyMapper {
     int updateByHrIdKeySelective(Company company);
 
     List<Company> queryAllCompany(Company company);
+
 }

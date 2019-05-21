@@ -1,11 +1,12 @@
 package com.cn.company.domain;
 
+import com.cn.domain.BaseDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-public class Position {
+public class Position  extends BaseDTO {
     private Integer id;
 
     private String positionName;
@@ -28,14 +29,6 @@ public class Position {
     private String locationCode;
 
     private String experienceCode;
-
-    private Date creationDate;
-
-    private Integer createdBy;
-
-    private Date lastUpdateDate;
-
-    private Integer lastUpdatedBy;
 
     private String requireMessage;
 
@@ -121,38 +114,6 @@ public class Position {
 
     public void setExperienceCode(String experienceCode) {
         this.experienceCode = experienceCode == null ? null : experienceCode.trim();
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public Integer getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(Integer createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Date getLastUpdateDate() {
-        return lastUpdateDate;
-    }
-
-    public void setLastUpdateDate(Date lastUpdateDate) {
-        this.lastUpdateDate = lastUpdateDate;
-    }
-
-    public Integer getLastUpdatedBy() {
-        return lastUpdatedBy;
-    }
-
-    public void setLastUpdatedBy(Integer lastUpdatedBy) {
-        this.lastUpdatedBy = lastUpdatedBy;
     }
 
     public String getRequireMessage() {
