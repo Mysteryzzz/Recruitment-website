@@ -67,8 +67,9 @@ public class ResponseData {
         return msg;
     }
 
-    public void setMsg(String msg) {
+    public ResponseData setMsg(String msg) {
         this.msg = msg;
+        return this;
     }
 
     public List<?> getData() {

@@ -85,7 +85,7 @@
                     $("#account_msg").html(res.message);
                 }
                 else{
-                    window.location.href="${base.contextPath}/index.html";
+                    window.location.href="${base.contextPath}" + res.msg;
                 }
             }
 

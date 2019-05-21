@@ -12,8 +12,8 @@ import java.lang.annotation.*;
 @Documented
 public @interface Permission {
 
-    String module();
-    String operation();
+    String module() default "";
+    String operation() default "";
 
 
 }

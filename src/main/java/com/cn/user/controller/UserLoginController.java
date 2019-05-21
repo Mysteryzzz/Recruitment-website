@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -33,7 +34,11 @@ public class UserLoginController {
         User user1 = new User(user.getAccount(), user.getPassword());
         user1 = loginService.checkLogin(user1);
         session.setAttribute("user", user1);
-        return new ResponseData(true);
+        String nextUrl = "/index.html";
+        if (session.getAttribute("next_url") != null){
+            nextUrl = session.getAttribute("next_url").toString();
+        }
+        return new ResponseData(true).setMsg(nextUrl);
     }
 
     @RequestMapping("/userLogout")

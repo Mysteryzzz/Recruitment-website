@@ -38,6 +38,7 @@ public class IndexIframeController extends BaseController
     @Autowired
     ICompanyApplicationService companyApplicationService;
 
+    @Permission(module = "user")
     @RequestMapping("/positionList")
     public ModelAndView positionList(@RequestParam(value = "name",required = false) String name)
     {
